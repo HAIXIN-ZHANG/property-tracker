@@ -1,0 +1,8 @@
+.next
+.panda
+coverage
+node_modules
+playwright-report
+styled-system
+test-results
+pnpm-lock.yaml

@@ -1,0 +1,35 @@
+@layer reset, base, tokens, recipes, utilities;
+
+html {
+  background: #f5f6f3;
+}
+
+body {
+  margin: 0;
+  color: #171b1f;
+  background: #f5f6f3;
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Text",
+    "Segoe UI",
+    sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}

@@ -1,0 +1,12 @@
+node_modules
+.next
+.panda
+styled-system
+.env
+.env.local
+coverage
+playwright-report
+test-results
+dist
+tsconfig.tsbuildinfo
+*.log
