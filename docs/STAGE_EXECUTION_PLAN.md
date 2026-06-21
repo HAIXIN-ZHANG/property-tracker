@@ -13,10 +13,10 @@ If a live data source is blocked, the stage must still work with mock data, manu
 
 ## Current Checkpoint
 
-Current stage:
+Current demo-ready stage:
 
 ```txt
-Stage 1: Static Area Workspace MVP
+Stage 1: Static Area Workspace Demo
 ```
 
 What is already true:
@@ -30,14 +30,18 @@ What is already true:
 - ABS WA SA2, WA Police crime, WA schools, and Transperth GTFS sample files have been downloaded and field-checked.
 - Data WA/Landgate locality and DPLH planning datasets exist, but their licences need review before public-product use.
 
-Current implementation focus:
+Next implementation focus:
 
 ```txt
-Build the first area workspace flow with sample WA data, source-status labels,
-Market Signals sample UI, and strategy lenses.
+Define provider interfaces, source documents, market signal snapshots, and mock
+provider data before connecting real APIs.
 ```
 
-The Stage 0 cleanup removed dead Prisma/ingestion scripts, replaced Tailwind with Panda CSS, added Jest/React Testing Library, added Playwright, and created a minimal Next app shell. Stage 0 is complete when `pnpm check` passes.
+The Stage 0 cleanup removed dead Prisma/ingestion scripts, replaced Tailwind with
+Panda CSS, added Jest/React Testing Library, added Playwright, and created a
+minimal Next app shell. Stage 1 added the visible read-only area-first workspace
+demo and is complete when `pnpm check` passes. It does not yet save real user
+research records.
 
 ## Stage Summary
 
@@ -45,8 +49,8 @@ The Stage 0 cleanup removed dead Prisma/ingestion scripts, replaced Tailwind wit
 | ----- | ------------------------------------------ | ------------------------------- | ------------------------------------------------------------- | -------------------------------- |
 | 0     | Clean, runnable app foundation             | Yes                             | Repo/tooling cleanup                                          | Done                             |
 | 0.5   | Data availability and area mapping plan    | Mostly                          | Area identity mapping, licence review, Domain access requests | Continue in parallel             |
-| 1     | Static area workspace MVP                  | Yes                             | Sample data                                                   | Do now                           |
-| 2     | Provider interfaces and data source status | Yes                             | Type contracts and mocks                                      | Build after Stage 1 shell        |
+| 1     | Static read-only area workspace demo       | Yes                             | Sample data                                                   | Done                             |
+| 2     | Provider interfaces and data source status | Yes                             | Type contracts and mocks                                      | Do next                          |
 | 3     | Manual opportunity tracker                 | Yes                             | Local persistence                                             | Build before complex automation  |
 | 4     | AI extraction and briefs                   | Yes, with user-provided sources | AI model + provenance model                                   | Build after source records exist |
 | 5     | Domain API integration                     | Conditionally                   | Approved Domain packages                                      | Do not block MVP                 |
@@ -167,11 +171,13 @@ This can work without Domain production access because it can use:
 - First five WA areas have static `AreaIdentity` records.
 - Domain and PropTrack are represented as access-gated sources.
 
-## Stage 1: Static Area Workspace MVP
+## Stage 1: Static Area Workspace Demo
+
+Status: demo-ready.
 
 ### Goal
 
-Build the first visible product experience using sample data.
+Build the first visible read-only product experience using sample data.
 
 ### Features / Tasks
 
@@ -188,8 +194,8 @@ Build the first visible product experience using sample data.
 - Schools card.
 - Transport and amenities card.
 - Planning/infrastructure card.
-- Opportunity list with sample house, land, and house-and-land package.
-- Data source/provenance labels.
+- Read-only opportunity list with sample house, land, and house-and-land package.
+- Data availability labels and honest empty provenance states.
 - Basic bilingual UI label structure.
 
 ### User Flow
@@ -199,15 +205,15 @@ Open app
 -> Search/select an area
 -> Land on area workspace
 -> Review area context cards
--> Open Market Signals for sample charts and source availability
+-> Open Market Signals for availability states and source paths
 -> Switch Live/Invest/Build lens
--> See opportunity list filtered/reframed by lens
+-> See read-only opportunity list filtered/reframed by lens
 -> Open sample opportunity detail
 ```
 
 ### Flow Check
 
-This can work now with sample data.
+This can work now with sample data. It is not a real saved opportunity tracker yet.
 
 No live API is needed.
 
@@ -220,8 +226,9 @@ No live API is needed.
 
 ### Done When
 
-- A user can understand the product in under one minute.
-- Every mock value is visually labelled as sample/demo/access pending.
+- A user can understand the product direction in under one minute.
+- Every mock value is visually labelled as sample/demo/access pending/mapping pending.
+- No sample opportunity shows fabricated provenance.
 - Desktop and mobile layouts are usable.
 
 ## Stage 2: Data Source Interfaces
@@ -592,6 +599,7 @@ This should not start until WA works.
 
 ## Recommended Next Move
 
-Build Stage 1 with sample data.
+Build Stage 2 provider interfaces and source document contracts.
 
-Continue Stage 0.5 data access and source validation in parallel, but do not let it block the visible MVP.
+Continue Stage 0.5 data access and source validation in parallel, but do not let
+it block the visible MVP.

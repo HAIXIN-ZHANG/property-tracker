@@ -1,7 +1,10 @@
+"use client";
+
 import { BarChart3, ExternalLink, Landmark, Newspaper, Route, TrendingUp } from "lucide-react";
 import { css } from "styled-system/css";
 import type { MarketBriefCategory } from "@/lib/market-brief";
 import { marketBriefItems } from "@/lib/market-brief";
+import { useI18n } from "@/components/i18n-provider";
 
 const categoryIcons: Record<MarketBriefCategory, typeof BarChart3> = {
   data: BarChart3,
@@ -11,6 +14,8 @@ const categoryIcons: Record<MarketBriefCategory, typeof BarChart3> = {
 };
 
 export function MarketBrief() {
+  const { t } = useI18n();
+
   return (
     <section
       className={css({
@@ -49,7 +54,7 @@ export function MarketBrief() {
             })}
           >
             <Newspaper size={16} />
-            External reading slate
+            {t("brief.eyebrow")}
           </div>
           <h2
             className={css({
@@ -61,7 +66,7 @@ export function MarketBrief() {
             })}
             id="market-brief-title"
           >
-            Market Brief
+            {t("brief.title")}
           </h2>
           <p
             className={css({
@@ -72,8 +77,7 @@ export function MarketBrief() {
               lineHeight: 1.65
             })}
           >
-            First version links out to original reports and policy pages. We will add ingestion and
-            AI summaries only after the data contracts are real.
+            {t("brief.description")}
           </p>
         </div>
 

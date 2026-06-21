@@ -1,6 +1,11 @@
 import type { SourceStatus } from "@/lib/source-status";
+import { getAreas } from "@/lib/areas";
 
-export const sampleAreas = ["Alkimos", "Baldivis", "Byford", "Ellenbrook", "Subiaco"];
+export const sampleAreas = getAreas().map((area) => ({
+  name: area.identity.displayName,
+  postcode: area.identity.primaryPostcode,
+  slug: area.identity.slug
+}));
 
 export const sourceCards: Array<{
   title: string;

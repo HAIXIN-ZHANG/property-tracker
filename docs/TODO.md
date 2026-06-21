@@ -4,7 +4,9 @@ Last updated: 2026-06-20
 
 ## Current Focus
 
-Build a working, visible Perth/WA-first MVP without depending on live paid API access.
+Stage 1 read-only sample workspace demo is complete. Next focus is Stage 2:
+define data source interfaces and source document contracts before connecting
+real providers.
 
 ## Stage 0: Foundation
 
@@ -58,7 +60,7 @@ Build a working, visible Perth/WA-first MVP without depending on live paid API a
 - [x] Download/inspect WA Education / Data WA school list fields.
 - [x] Identify open Data WA/SLIP boundary or planning layers.
 - [x] Download Transperth GTFS and inspect stop fields.
-- [ ] Define static `AreaIdentity` records for Alkimos, Baldivis, Byford, Ellenbrook, and Subiaco.
+- [x] Define static `AreaIdentity` records for Alkimos, Baldivis, Byford, Ellenbrook, and Subiaco.
 - [x] Mark each dashboard card as `real`, `mock`, `manual`, `access_pending`, or `unavailable`.
 - [x] Keep PropTrack as a later-stage commercial candidate, not an MVP blocker.
 
@@ -67,17 +69,21 @@ Build a working, visible Perth/WA-first MVP without depending on live paid API a
 - [x] Create `src/app` structure.
 - [x] Add static external market brief link slate.
 - [x] Define Market Signals metric dictionary and feasibility rules.
-- [ ] Add sample area data for Perth/WA suburbs.
-- [ ] Build area search screen.
-- [ ] Build area workspace page.
-- [ ] Build Market Signals sample page with source-status labels.
-- [ ] Add strategy lens switcher: `Live`, `Invest`, `Build`.
-- [ ] Add area metric cards.
-- [ ] Add opportunity list.
-- [ ] Add sample opportunity detail page.
-- [ ] Add source/provenance display component.
-- [ ] Add bilingual UI label structure.
-- [ ] Verify desktop and mobile layout.
+- [x] Add sample area data for Perth/WA suburbs.
+- [x] Build first area selection screen with sample area links.
+- [x] Add static sample area search/autocomplete.
+- [x] Build area workspace page.
+- [x] Build Market Signals preview with source-status labels.
+- [x] Add strategy lens switcher: `Live`, `Invest`, `Build`.
+- [x] Add area metric cards.
+- [x] Add opportunity list.
+- [x] Add sample opportunity detail page.
+- [x] Add source/provenance display component.
+- [x] Replace fake provenance placeholders with an honest empty state.
+- [x] Split source-ready data from mapping-pending area metric readiness.
+- [x] Split Market Signals availability states: sample, link-only, public candidate, derived later, access pending.
+- [x] Add bilingual UI label structure.
+- [x] Verify desktop and mobile layout.
 
 ## Stage 2: Data Source Interfaces
 
@@ -112,6 +118,19 @@ Build a working, visible Perth/WA-first MVP without depending on live paid API a
 - [ ] Add missing fields display.
 - [ ] Add AI area brief.
 - [ ] Add AI opportunity brief.
+
+## Stage 5: CI/CD And Deployment
+
+- [x] Add GitHub Actions CI for `pnpm check`.
+- [ ] Add required branch protection once the repo is public or shared.
+- [ ] Choose hosting target for the first web deployment.
+- [ ] Add deployment environment strategy: local, preview, production.
+- [ ] Add preview deployment for pull requests.
+- [ ] Add production deployment from `main`.
+- [ ] Document required environment variables for deployment.
+- [ ] Add deployment smoke check after production release.
+- [ ] Add basic uptime or availability monitoring after public launch.
+- [ ] Add release checklist for tagged MVP milestones.
 
 ## Later Backlog
 

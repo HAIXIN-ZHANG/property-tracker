@@ -3,8 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "packageManager": "pnpm@9.15.0",
+  "engines": {
+    "node": ">=22",
+    "pnpm": ">=9"
+  },
   "scripts": {
-    "codegen": "panda codegen",
+    "codegen": "panda codegen && panda cssgen",
     "dev": "pnpm codegen && next dev",
     "build": "pnpm codegen && next build",
     "start": "next start",

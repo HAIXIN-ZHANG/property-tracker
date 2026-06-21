@@ -1,5 +1,8 @@
+"use client";
+
 import { css } from "styled-system/css";
 import { getSourceStatusMeta, type SourceStatus } from "@/lib/source-status";
+import { useI18n } from "@/components/i18n-provider";
 
 type SourceStatusPillProps = {
   status: SourceStatus;
@@ -7,6 +10,7 @@ type SourceStatusPillProps = {
 
 export function SourceStatusPill({ status }: SourceStatusPillProps) {
   const meta = getSourceStatusMeta(status);
+  const { t } = useI18n();
 
   return (
     <span
@@ -25,7 +29,7 @@ export function SourceStatusPill({ status }: SourceStatusPillProps) {
         whiteSpace: "nowrap"
       })}
     >
-      {meta.label}
+      {t(`status.${status}`)}
     </span>
   );
 }

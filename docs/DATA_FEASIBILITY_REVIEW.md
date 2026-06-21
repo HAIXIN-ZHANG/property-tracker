@@ -103,18 +103,19 @@ Search/select area
 
 ## Immediate Next Step
 
-Stage 0 is complete. Build Stage 1 next:
+Stage 1 read-only sample workspace demo is complete. Build Stage 2 next:
 
 ```txt
-Area search
--> static area workspace
--> source-status labels
--> Market Signals sample page
--> Live / Invest / Build lens
--> sample opportunity list
+Provider interfaces
+-> source document contracts
+-> market signal snapshot shape
+-> mock providers
+-> source availability UI
 ```
 
-Then Stage 1 can show the product with sample area data and real source-status labels.
+This keeps real data integration behind stable contracts instead of hard-coding
+Domain, ABS, WA Police, schools, or transport assumptions directly into UI
+components.
 
 Stage 0.5 continues in parallel as data import proof-of-concepts for:
 

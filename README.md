@@ -1,14 +1,27 @@
 # property-tracker
 
+[![CI](https://github.com/HAIXIN-ZHANG/property-tracker/actions/workflows/ci.yml/badge.svg)](https://github.com/HAIXIN-ZHANG/property-tracker/actions/workflows/ci.yml)
+
 Area-first property research and opportunity tracking for Australian buyers.
 
-`property-tracker` is not a Domain or realestate.com.au clone. It is a decision workspace for researching suburbs, tracking property opportunities, comparing land / house-and-land options, and using AI to explain source-backed data.
+`property-tracker` is a decision workspace for researching suburbs, tracking
+property opportunities, comparing land / house-and-land options, and using AI to
+explain source-backed data. The first product target is Perth/WA.
 
-The first product target is Perth/WA-first.
+It is not a Domain or realestate.com.au clone. The product should help buyers
+understand an area before chasing a listing.
 
-## Product Shape
+## Project Status
 
-The core loop:
+| Area                 | Status      | Notes                                                         |
+| -------------------- | ----------- | ------------------------------------------------------------- |
+| App foundation       | Complete    | Next.js, TypeScript, Panda CSS, Jest, Playwright, CI-ready    |
+| Data feasibility     | In progress | WA open data validated; Domain/PropTrack access is gated      |
+| Static MVP           | Demo ready  | Stage 1 read-only sample workspace is implemented             |
+| Live provider data   | Later       | Domain/PropTrack integrations stay behind provider adapters   |
+| AI extraction/briefs | Later       | AI explains stored/source-backed facts; it is not a fact feed |
+
+## Target Product Loop
 
 ```txt
 Search area
@@ -21,6 +34,23 @@ Search area
 
 The MVP should work without paid listing API access.
 
+## Current Capabilities
+
+- Static app shell with a calm, iOS/macOS-inspired research workspace direction.
+- Sample area search for the first five Perth/WA suburbs.
+- Area workspace pages with Live / Invest / Build strategy lenses.
+- Read-only sample opportunity list and opportunity detail pages.
+- Bilingual UI label structure for English and Chinese.
+- Source status model for `validated`, `mapping_pending`, `sample`, `manual`, and
+  `access_pending` data.
+- Market Signals availability model for `sample_now`, `external_link_now`,
+  `public_source`, `derived_later`, and `access_pending` signals.
+- External Market Brief slate linking to original market, policy, planning, and
+  data sources.
+- Market Signals metric dictionary for supply, demand, price, rental, pressure,
+  and future supply signals.
+- Product, roadmap, data feasibility, and implementation planning documents.
+
 Validated public-data candidates already confirmed:
 
 - ABS WA SA2 Census DataPack
@@ -29,7 +59,8 @@ Validated public-data candidates already confirmed:
 - Transperth GTFS
 - Data WA / SLIP locality and planning layer metadata
 
-Domain and PropTrack stay as later official/commercial integrations until access is approved.
+Domain and PropTrack stay as later official/commercial integrations until access
+is approved.
 
 ## Tech Stack
 
@@ -45,6 +76,11 @@ Domain and PropTrack stay as later official/commercial integrations until access
 See [Tech Stack](docs/TECH_STACK.md) for the full rationale.
 
 ## Getting Started
+
+Requirements:
+
+- Node.js 22
+- pnpm 9.15.0
 
 Install dependencies:
 
@@ -76,14 +112,25 @@ Run browser tests when e2e coverage exists:
 pnpm e2e
 ```
 
+## Scripts
+
+| Command             | Purpose                                                  |
+| ------------------- | -------------------------------------------------------- |
+| `pnpm dev`          | Generate Panda helpers and start the Next.js dev server  |
+| `pnpm build`        | Generate Panda helpers and build the production app      |
+| `pnpm check`        | Run format check, lint, typecheck, Jest tests, and build |
+| `pnpm test`         | Run Jest unit/component tests                            |
+| `pnpm e2e`          | Run Playwright tests when e2e workflows exist            |
+| `pnpm format`       | Format the repository with Prettier                      |
+| `pnpm format:check` | Verify formatting without writing changes                |
+
 ## Project Structure
 
 ```txt
 src/app/                 Next App Router routes
 src/components/          Reusable UI components
-src/lib/                 Data contracts, sample data, helpers
+src/lib/                 Data contracts, sample data, helpers, colocated tests
 docs/                    Product, data, roadmap, and implementation planning
-tests/                   Test setup and future e2e tests
 styled-system/           Generated Panda CSS helpers
 ```
 
@@ -106,18 +153,28 @@ styled-system/           Generated Panda CSS helpers
 
 ## Data Principles
 
-- Show whether data is `validated`, `sample`, `manual`, or `access_pending`.
+- Show whether data is `validated`, `mapping_pending`, `sample`, `manual`, or
+  `access_pending`.
+- Show Market Signals as `sample_now`, `external_link_now`, `public_source`,
+  `derived_later`, or `access_pending`.
 - Store source provenance for important claims.
 - Use AI for extraction and explanation, not as the source of truth.
 - Keep provider integrations behind adapter interfaces.
-- Do not scrape Google search results, Domain public listing pages, or realestate.com.au public listing pages as a product backbone.
+- Do not scrape Google search results, Domain public listing pages, or
+  realestate.com.au public listing pages as a product backbone.
 
 ## Current Stage
 
-Current focus:
+Completed:
 
 ```txt
-Stage 1: Static area workspace MVP
+Stage 1: Static area workspace demo
+```
+
+Next implementation focus:
+
+```txt
+Stage 2: Data source interfaces
 ```
 
 Parallel validation track:
@@ -126,5 +183,8 @@ Parallel validation track:
 Stage 0.5: Data validation and area identity
 ```
 
-Stage 0 is complete: the repo has a runnable Next app, Panda CSS, Jest, React
-Testing Library, Playwright, ESLint, Prettier, and a passing `pnpm check` gate.
+Stage 1 is demo-ready: the app has sample area search, read-only area
+workspaces, strategy lenses, Market Signals previews with honest availability
+states, sample opportunity detail pages, source/provenance empty states,
+bilingual UI labels, and a passing `pnpm check` gate. Real saved opportunity
+tracking starts in Stage 3.

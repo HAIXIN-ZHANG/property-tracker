@@ -11,4 +11,11 @@ describe("getSourceStatusMeta", () => {
       color: "eucalyptus"
     });
   });
+
+  it("separates source validation from pending area mapping", () => {
+    expect(getSourceStatusMeta("mapping_pending")).toMatchObject({
+      label: "Mapping pending",
+      color: "ocean"
+    });
+  });
 });

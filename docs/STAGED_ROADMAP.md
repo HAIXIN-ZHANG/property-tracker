@@ -55,11 +55,11 @@ Done when:
 - The first sample areas have a clear mapping plan across Domain, ABS, WA Police, Data WA, Transperth, and OSM.
 - Domain API access is either validated or explicitly marked as access pending.
 
-## Stage 1: Static Area Workspace MVP
+## Stage 1: Static Area Workspace Demo
 
 Goal:
 
-Build the first visible workspace with sample data.
+Build the first visible read-only workspace with sample data.
 
 Deliverables:
 
@@ -68,13 +68,15 @@ Deliverables:
 - Strategy lens switcher: `Live`, `Invest`, `Build`
 - Static Perth/WA sample areas
 - Market, demographics, crime, school, transport, planning cards
-- Market Signals sample page with source-status labels
-- Opportunity list with sample house, land, and package items
+- Market Signals sample page with honest availability labels
+- Read-only opportunity list with sample house, land, and package items
+- Empty provenance state when no real source is attached
 - Basic bilingual UI label system
 
 Done when:
 
 - A user can search/select an area and understand the intended product flow without live APIs.
+- The UI does not imply saved tracking, suburb-level validation, or sourced opportunity facts.
 
 ## Stage 2: Data Source Interfaces
 

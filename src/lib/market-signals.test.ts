@@ -1,5 +1,6 @@
 import {
   getDerivedMarketSignals,
+  getMarketSignalAvailabilityMeta,
   getMarketSignalsByGroup,
   marketSignalDefinitions
 } from "@/lib/market-signals";
@@ -33,5 +34,11 @@ describe("marketSignalDefinitions", () => {
       "new_listings",
       "old_listings"
     ]);
+  });
+
+  it("keeps runtime availability states distinct", () => {
+    expect(getMarketSignalAvailabilityMeta("external_link_now").label).toBe("Link only");
+    expect(getMarketSignalAvailabilityMeta("public_source").label).toBe("Public source candidate");
+    expect(getMarketSignalAvailabilityMeta("derived_later").label).toBe("Derived later");
   });
 });

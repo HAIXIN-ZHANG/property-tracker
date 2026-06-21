@@ -24,13 +24,60 @@ export type MarketSignalDefinition = {
   formula?: string;
 };
 
+export type MarketSignalAvailabilityMeta = {
+  label: string;
+  color: string;
+  background: string;
+  borderColor: string;
+  description: string;
+};
+
+const marketSignalAvailabilityMeta: Record<MarketSignalAvailability, MarketSignalAvailabilityMeta> =
+  {
+    sample_now: {
+      label: "Sample only",
+      color: "muted",
+      background: "rgba(102, 115, 109, 0.09)",
+      borderColor: "rgba(102, 115, 109, 0.2)",
+      description: "Static sample value; not a live local metric."
+    },
+    external_link_now: {
+      label: "Link only",
+      color: "eucalyptus",
+      background: "rgba(17, 97, 76, 0.08)",
+      borderColor: "rgba(17, 97, 76, 0.22)",
+      description: "Use the original source link; no local series is stored."
+    },
+    access_pending: {
+      label: "Access pending",
+      color: "amber",
+      background: "rgba(183, 121, 31, 0.1)",
+      borderColor: "rgba(183, 121, 31, 0.24)",
+      description: "Provider access is required before this can be shown."
+    },
+    public_source: {
+      label: "Public source candidate",
+      color: "ocean",
+      background: "rgba(38, 98, 217, 0.08)",
+      borderColor: "rgba(38, 98, 217, 0.22)",
+      description: "Public source exists, but geography mapping may be broader than suburb."
+    },
+    derived_later: {
+      label: "Derived later",
+      color: "muted",
+      background: "rgba(102, 115, 109, 0.09)",
+      borderColor: "rgba(102, 115, 109, 0.2)",
+      description: "Requires upstream metrics and a clear formula before display."
+    }
+  };
+
 export const marketSignalDefinitions: MarketSignalDefinition[] = [
   {
     id: "active_listings_trend",
     label: "Active listings trend",
     group: "supply",
     availability: "external_link_now",
-    v1Behaviour: "Show a sample chart with SQM and Domain access-pending source links.",
+    v1Behaviour: "Show link-only availability with SQM and Domain access-pending source paths.",
     preferredSources: ["SQM Total Property Listings", "Domain Agents & Listings snapshots"],
     dependencies: ["Area identity", "Property type filter"]
   },
@@ -39,7 +86,7 @@ export const marketSignalDefinitions: MarketSignalDefinition[] = [
     label: "New listings",
     group: "supply",
     availability: "external_link_now",
-    v1Behaviour: "Show a sample chart and explain that automation needs snapshots.",
+    v1Behaviour: "Show link-only availability and explain that automation needs snapshots.",
     preferredSources: ["SQM Chart Data", "Domain Agents & Listings snapshots"],
     dependencies: ["Listing id", "Date listed", "Snapshot date"]
   },
@@ -48,7 +95,7 @@ export const marketSignalDefinitions: MarketSignalDefinition[] = [
     label: "Old listings",
     group: "supply",
     availability: "external_link_now",
-    v1Behaviour: "Show a sample chart with an external SQM reference.",
+    v1Behaviour: "Show link-only availability with an external SQM reference.",
     preferredSources: ["SQM Total Property Listings", "Domain Agents & Listings snapshots"],
     dependencies: ["Listing id", "Date listed", "Snapshot date"]
   },
@@ -169,4 +216,8 @@ export function getMarketSignalsByGroup(group: MarketSignalGroup) {
 
 export function getDerivedMarketSignals() {
   return marketSignalDefinitions.filter((signal) => signal.availability === "derived_later");
+}
+
+export function getMarketSignalAvailabilityMeta(availability: MarketSignalAvailability) {
+  return marketSignalAvailabilityMeta[availability];
 }

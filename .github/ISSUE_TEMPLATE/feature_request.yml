@@ -1,0 +1,38 @@
+name: Feature request
+description: Propose a product or engineering improvement.
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What user problem or workflow does this improve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: What should change?
+    validations:
+      required: true
+  - type: dropdown
+    id: stage
+    attributes:
+      label: Stage
+      options:
+        - Stage 0.5 data validation
+        - Stage 1 static MVP
+        - Stage 2 provider interfaces
+        - Stage 3 opportunity tracker
+        - Stage 4 AI extraction and briefs
+        - Later backlog
+    validations:
+      required: true
+  - type: textarea
+    id: data
+    attributes:
+      label: Data/source dependency
+      description: Does this require validated, sample, manual, access-pending, or commercial data?

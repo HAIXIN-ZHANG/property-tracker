@@ -1,4 +1,4 @@
-export type SourceStatus = "validated" | "access_pending" | "manual" | "sample";
+export type SourceStatus = "validated" | "mapping_pending" | "access_pending" | "manual" | "sample";
 
 export type SourceStatusMeta = {
   label: string;
@@ -13,6 +13,12 @@ const sourceStatusMeta: Record<SourceStatus, SourceStatusMeta> = {
     color: "eucalyptus",
     background: "rgba(17, 97, 76, 0.08)",
     borderColor: "rgba(17, 97, 76, 0.22)"
+  },
+  mapping_pending: {
+    label: "Mapping pending",
+    color: "ocean",
+    background: "rgba(38, 98, 217, 0.08)",
+    borderColor: "rgba(38, 98, 217, 0.22)"
   },
   access_pending: {
     label: "Access pending",

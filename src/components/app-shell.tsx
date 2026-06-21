@@ -1,11 +1,33 @@
+"use client";
+
 import { BarChart3, DatabaseZap, MapPinned, Search, ShieldCheck } from "lucide-react";
+import Link from "next/link";
+import { useMemo, useState } from "react";
 import { css } from "styled-system/css";
 import { sampleAreas, sourceCards } from "@/lib/sample-data";
 import { getSourceStatusMeta } from "@/lib/source-status";
+import { LanguageToggle } from "@/components/language-toggle";
 import { MarketBrief } from "@/components/market-brief";
 import { SourceStatusPill } from "@/components/source-status-pill";
+import { useI18n } from "@/components/i18n-provider";
 
 export function AppShell() {
+  const { t } = useI18n();
+  const [query, setQuery] = useState("");
+  const matchingAreas = useMemo(() => {
+    const normalizedQuery = query.trim().toLowerCase();
+    if (!normalizedQuery) {
+      return sampleAreas;
+    }
+
+    return sampleAreas.filter((area) =>
+      `${area.name} ${area.postcode}`.toLowerCase().includes(normalizedQuery)
+    );
+  }, [query]);
+  // The primary CTA follows the first filtered sample area. If there is no
+  // match, it stays disabled instead of silently opening an unrelated suburb.
+  const primaryArea = matchingAreas[0];
+
   return (
     <main
       className={css({
@@ -39,7 +61,7 @@ export function AppShell() {
                 fontWeight: 600
               })}
             >
-              Perth / WA first MVP
+              {t("app.kicker")}
             </p>
             <h1
               className={css({
@@ -50,7 +72,7 @@ export function AppShell() {
                 letterSpacing: "0"
               })}
             >
-              property-tracker
+              {t("app.title")}
             </h1>
           </div>
 
@@ -58,21 +80,31 @@ export function AppShell() {
             className={css({
               display: "flex",
               alignItems: "center",
-              alignSelf: { base: "flex-start", md: "center" },
-              gap: "8px",
-              rounded: "control",
-              border: "1px solid token(colors.line)",
-              bg: "panel",
-              px: "10px",
-              py: "8px",
-              color: "muted",
-              fontSize: "13px",
-              fontWeight: 600,
-              whiteSpace: "nowrap"
+              gap: "10px",
+              flexWrap: "wrap"
             })}
           >
-            <ShieldCheck size={16} />
-            Source-backed
+            <LanguageToggle />
+            <div
+              className={css({
+                display: "flex",
+                alignItems: "center",
+                alignSelf: { base: "flex-start", md: "center" },
+                gap: "8px",
+                rounded: "control",
+                border: "1px solid token(colors.line)",
+                bg: "panel",
+                px: "10px",
+                py: "8px",
+                color: "muted",
+                fontSize: "13px",
+                fontWeight: 600,
+                whiteSpace: "nowrap"
+              })}
+            >
+              <ShieldCheck size={16} />
+              {t("app.sourceBacked")}
+            </div>
           </div>
         </header>
 
@@ -104,7 +136,7 @@ export function AppShell() {
               })}
             >
               <Search size={18} />
-              Area workspace foundation
+              {t("home.foundation")}
             </div>
 
             <h2
@@ -116,7 +148,7 @@ export function AppShell() {
                 letterSpacing: "0"
               })}
             >
-              Research a suburb before you chase a listing.
+              {t("home.heading")}
             </h2>
 
             <p
@@ -129,8 +161,7 @@ export function AppShell() {
                 lineHeight: 1.65
               })}
             >
-              The first version starts with validated public data, manual opportunity tracking, and
-              AI that explains sources instead of inventing facts.
+              {t("home.description")}
             </p>
 
             <div
@@ -143,9 +174,10 @@ export function AppShell() {
             >
               <label className={css({ display: "grid", gap: "7px" })}>
                 <span className={css({ color: "muted", fontSize: "13px", fontWeight: 650 })}>
-                  Sample area
+                  {t("home.sampleArea")}
                 </span>
                 <input
+                  type="search"
                   className={css({
                     h: "44px",
                     rounded: "control",
@@ -159,28 +191,54 @@ export function AppShell() {
                       boxShadow: "0 0 0 3px rgba(17, 97, 76, 0.14)"
                     }
                   })}
-                  defaultValue="Ellenbrook, WA"
-                  aria-label="Sample area"
+                  value={query}
+                  onChange={(event) => setQuery(event.target.value)}
+                  placeholder={t("home.searchPlaceholder")}
+                  aria-label={t("home.searchPlaceholder")}
                 />
               </label>
 
-              <button
-                className={css({
-                  alignSelf: "end",
-                  h: "44px",
-                  rounded: "control",
-                  border: "1px solid token(colors.eucalyptus)",
-                  bg: "eucalyptus",
-                  color: "white",
-                  px: "18px",
-                  fontWeight: 750,
-                  cursor: "pointer",
-                  _hover: { bg: "#0d523f" }
-                })}
-                type="button"
-              >
-                Open workspace
-              </button>
+              {primaryArea ? (
+                <Link
+                  className={css({
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    alignSelf: "end",
+                    h: "44px",
+                    rounded: "control",
+                    border: "1px solid token(colors.eucalyptus)",
+                    bg: "eucalyptus",
+                    color: "#fff",
+                    px: "18px",
+                    fontWeight: 750,
+                    cursor: "pointer",
+                    _hover: { bg: "#0d523f" }
+                  })}
+                  href={`/areas/${primaryArea.slug}`}
+                  style={{ color: "#fff" }}
+                >
+                  {t("home.openWorkspace")}
+                </Link>
+              ) : (
+                <button
+                  className={css({
+                    alignSelf: "end",
+                    h: "44px",
+                    rounded: "control",
+                    border: "1px solid token(colors.line)",
+                    bg: "rgba(102, 115, 109, 0.08)",
+                    color: "muted",
+                    px: "18px",
+                    fontWeight: 750,
+                    cursor: "not-allowed"
+                  })}
+                  disabled
+                  type="button"
+                >
+                  {t("home.noAreaToOpen")}
+                </button>
+              )}
             </div>
           </div>
 
@@ -251,22 +309,59 @@ export function AppShell() {
             gridTemplateColumns: { base: "1fr", md: "repeat(5, 1fr)" },
             gap: "10px"
           })}
-          aria-label="First sample areas"
+          aria-label={t("home.firstAreas")}
         >
-          {sampleAreas.map((area) => (
-            <div
+          {matchingAreas.map((area) => (
+            <Link
               className={css({
                 bg: "rgba(255,255,255,0.7)",
                 border: "1px solid token(colors.line)",
                 rounded: "control",
                 px: "12px",
-                py: "10px"
+                py: "10px",
+                color: "ink",
+                textDecoration: "none",
+                _hover: {
+                  borderColor: "rgba(17, 97, 76, 0.32)",
+                  bg: "panel"
+                },
+                _focusVisible: {
+                  outline: "3px solid rgba(17, 97, 76, 0.18)",
+                  outlineOffset: "2px"
+                }
               })}
-              key={area}
+              href={`/areas/${area.slug}`}
+              key={area.slug}
             >
-              <span className={css({ fontSize: "14px", fontWeight: 700 })}>{area}</span>
-            </div>
+              <span className={css({ fontSize: "14px", fontWeight: 700 })}>{area.name}</span>
+              <span
+                className={css({
+                  ml: "6px",
+                  color: "muted",
+                  fontSize: "12px",
+                  fontWeight: 700
+                })}
+              >
+                {area.postcode}
+              </span>
+            </Link>
           ))}
+          {matchingAreas.length === 0 ? (
+            <div
+              className={css({
+                gridColumn: { md: "1 / -1" },
+                rounded: "control",
+                border: "1px dashed token(colors.line)",
+                px: "12px",
+                py: "10px",
+                color: "muted",
+                fontSize: "14px",
+                fontWeight: 700
+              })}
+            >
+              {t("home.noMatch")}
+            </div>
+          ) : null}
         </section>
 
         <MarketBrief />
