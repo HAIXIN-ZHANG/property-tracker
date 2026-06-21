@@ -1,6 +1,6 @@
 # Data Validation Matrix
 
-Last updated: 2026-06-20
+Last updated: 2026-06-21
 
 This matrix separates "official source exists" from "we have successfully used it in this app".
 
@@ -76,13 +76,13 @@ These cover outer growth corridors, land/build use cases, and established inner 
 
 | Dashboard Card           | Preferred Source                                            | Fallback                           | Current Status                                       |
 | ------------------------ | ----------------------------------------------------------- | ---------------------------------- | ---------------------------------------------------- |
-| Area summary             | Domain + ABS + manual copy                                  | Mock sample                        | Source docs verified                                 |
+| Area summary             | Domain + ABS + manual copy                                  | Mock sample                        | Sample only; provider mapping pending                |
 | Median price/rent/yield  | Domain suburb performance + rental estimate                 | PropTrack later, mock sample       | Access needed                                        |
-| Demographics             | ABS + Domain demographics                                   | ABS WA SA2 import                  | ABS file validated, Domain access needed             |
-| Crime trend              | WA Police                                                   | Manual import                      | WA Police file validated                             |
-| Schools                  | WA Education / Data WA schools + Domain Schools later       | Manual sample                      | WA schools file validated, Domain access needed      |
-| Transport                | Transperth GTFS                                             | Manual distances                   | Transperth GTFS validated                            |
-| Amenities                | OSM / Google Places later                                   | Manual POI sample                  | Source docs verified                                 |
+| Demographics             | ABS + Domain demographics                                   | ABS WA SA2 import                  | Field-checked file; suburb mapping pending           |
+| Crime trend              | WA Police                                                   | Manual import                      | Field-checked file; locality mapping pending         |
+| Schools                  | WA Education / Data WA schools + Domain Schools later       | Manual sample                      | Field-checked file; distance rules pending           |
+| Transport                | Transperth GTFS                                             | Manual distances                   | Field-checked file; commute rules pending            |
+| Amenities                | OSM / Google Places later                                   | Manual POI sample                  | Source candidate only                                |
 | Planning/infrastructure  | Data WA, council portals, project pages                     | Manual event entries               | Planning layers found, licence/normalization pending |
 | Listings                 | Domain listings                                             | PropTrack later, manual URL/import | Access needed                                        |
 | Market Signals: supply   | SQM Research + Domain listing snapshots                     | Sample data and external links     | Docs verified, Domain access needed                  |

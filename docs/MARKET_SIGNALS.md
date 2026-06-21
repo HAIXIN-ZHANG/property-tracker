@@ -1,10 +1,10 @@
 # Market Signals
 
-Last updated: 2026-06-20
+Last updated: 2026-06-21
 
-`Market Signals` is the area-level analytics module for `property-tracker`.
+`Market Signals` is the area-level analytics module for AreaScope.
 
-It should feel similar in purpose to market dashboards from property portals and research sites, but it must be honest about data availability. The first version can show the chart layout, source links, and sample data. Real automated metrics require approved APIs, purchased chart data, or our own scheduled snapshots.
+It should feel similar in purpose to market dashboards from property portals and research sites, but it must be honest about data availability. The first version can show availability cards, source links, and clearly labelled sample-only values. Real automated metrics require approved APIs, purchased chart data, or our own scheduled snapshots.
 
 ## Product Role
 

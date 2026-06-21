@@ -1,6 +1,6 @@
 # Staged Roadmap
 
-Last updated: 2026-06-20
+Last updated: 2026-06-21
 
 The product can be large. The implementation should not be.
 
@@ -20,7 +20,7 @@ Deliverables:
 - Data source audit
 - Staged roadmap
 - TODO list
-- Project naming changed from `landalpha` to `property-tracker`
+- Repo naming changed from `landalpha` to `property-tracker`; product brand is AreaScope
 - Tech stack finalized
 - Tailwind removed and Panda CSS added
 - Basic lint, format, typecheck, test scripts
@@ -47,7 +47,7 @@ Deliverables:
 - Data availability status model
 - Dashboard card dependency map
 - First smoke-test plan for Domain, ABS, WA Police, Data WA, and Transperth
-- Validated candidate importers for ABS WA SA2, WA Police crime, WA schools, and Transperth GTFS
+- Field-checked candidate data sources for ABS WA SA2, WA Police crime, WA schools, and Transperth GTFS
 
 Done when:
 
@@ -80,24 +80,47 @@ Done when:
 
 ## Stage 2: Data Source Interfaces
 
+Status: Complete for the current MVP boundary. Real provider data remains
+access-pending or mapping-pending.
+
 Goal:
 
 Create clean boundaries for real data providers.
 
 Deliverables:
 
-- Domain API client interface
+- Provider result and adapter contracts
 - Market Signal provider/snapshot interfaces
-- ABS data adapter
-- WA crime adapter
-- Source provenance model
-- Mock providers for local development
-- Ingestion status UI
-- Data source status page
+- Source document and extraction run models
+- Mock area/opportunity provider for local development
+- Fail-closed Domain adapter stub
+- Fail-closed ABS adapter stub
+- Fail-closed WA crime adapter stub
+- Data source status page with source document readiness
 
 Done when:
 
-- The app can switch between mock data and real provider credentials without rewriting UI logic.
+- The app can add real provider credentials later without rewriting UI logic.
+
+## Stage 2.5: Real Open Data Proof
+
+Goal:
+
+Connect one field-checked public data source into the area workspace without
+adding database or ingestion complexity.
+
+Deliverables:
+
+- WA schools typed sample fixture
+- WA schools provider/importer boundary
+- Ellenbrook schools panel
+- Source document and caveat display
+- Tests for status semantics and no catchment claim
+
+Done when:
+
+- One area page displays real-data-derived school context with honest caveats.
+- The app still passes `pnpm check`.
 
 ## Stage 3: Opportunity Tracker
 

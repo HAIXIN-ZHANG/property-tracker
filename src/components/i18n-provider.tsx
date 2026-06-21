@@ -17,7 +17,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     // localStorage is read after mount to avoid coupling server-rendered markup
     // to a browser-only preference.
-    const storedLocale = window.localStorage.getItem("property-tracker-locale");
+    const storedLocale = window.localStorage.getItem("areascope-locale");
     if (storedLocale === "en" || storedLocale === "zh") {
       setLocaleState(storedLocale);
     }
@@ -29,7 +29,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
       setLocale: (nextLocale) => {
         setLocaleState(nextLocale);
         // Persist only the UI language; source/sample content stays as stored.
-        window.localStorage.setItem("property-tracker-locale", nextLocale);
+        window.localStorage.setItem("areascope-locale", nextLocale);
       },
       t: (key) => translate(locale, key)
     };

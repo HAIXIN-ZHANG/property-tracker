@@ -1,7 +1,9 @@
-import type { SourceStatus } from "@/lib/source-status";
-import { getAreas } from "@/lib/areas";
+import type { DataAvailabilityStatus } from "@/lib/data-contracts";
+import { mockAreaProvider } from "@/lib/providers/mock-area-provider";
 
-export const sampleAreas = getAreas().map((area) => ({
+const sampleAreasResult = mockAreaProvider.getAreas();
+
+export const sampleAreas = (sampleAreasResult.ok ? sampleAreasResult.data : []).map((area) => ({
   name: area.identity.displayName,
   postcode: area.identity.primaryPostcode,
   slug: area.identity.slug
@@ -10,19 +12,21 @@ export const sampleAreas = getAreas().map((area) => ({
 export const sourceCards: Array<{
   title: string;
   description: string;
-  status: SourceStatus;
+  status: DataAvailabilityStatus;
   icon: "chart" | "data" | "map";
 }> = [
   {
     title: "ABS demographics",
-    description: "WA SA2 Census DataPack downloaded and field-checked for first importer work.",
-    status: "validated",
+    description:
+      "WA SA2 Census fields are checked, but suburb-to-SA2 mapping must be completed first.",
+    status: "mapping_pending",
     icon: "chart"
   },
   {
     title: "Crime and transport",
-    description: "WA Police XLSX and Transperth GTFS are confirmed as usable MVP data sources.",
-    status: "validated",
+    description:
+      "WA Police XLSX and Transperth GTFS fields exist; area matching rules are still pending.",
+    status: "mapping_pending",
     icon: "data"
   },
   {
@@ -34,7 +38,7 @@ export const sourceCards: Array<{
   {
     title: "Planning and boundaries",
     description: "Data WA layers exist; licence and interpretation need review before public use.",
-    status: "manual",
+    status: "source_accepted",
     icon: "map"
   }
 ];

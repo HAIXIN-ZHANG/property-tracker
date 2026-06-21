@@ -3,14 +3,16 @@
 import { ExternalLink } from "lucide-react";
 import { css } from "styled-system/css";
 import type { SourceRecord } from "@/lib/areas";
-import { SourceStatusPill } from "@/components/source-status-pill";
+import type { RuntimeDataState } from "@/lib/data-contracts";
+import { DataAvailabilityPill } from "@/components/data-availability-pill";
 import { useI18n } from "@/components/i18n-provider";
 
 type SourceProvenancePanelProps = {
+  providerState: RuntimeDataState;
   records: SourceRecord[];
 };
 
-export function SourceProvenancePanel({ records }: SourceProvenancePanelProps) {
+export function SourceProvenancePanel({ providerState, records }: SourceProvenancePanelProps) {
   const { t } = useI18n();
 
   return (
@@ -41,6 +43,28 @@ export function SourceProvenancePanel({ records }: SourceProvenancePanelProps) {
         >
           {t("opportunity.sourcePanel")}
         </h2>
+        <div
+          className={css({
+            mt: "10px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "10px",
+            flexWrap: "wrap"
+          })}
+        >
+          <p
+            className={css({
+              m: 0,
+              color: "muted",
+              fontSize: "13px",
+              lineHeight: 1.45
+            })}
+          >
+            {providerState.source}
+          </p>
+          <DataAvailabilityPill status={providerState.status} />
+        </div>
       </div>
 
       {records.length === 0 ? (
@@ -64,9 +88,11 @@ export function SourceProvenancePanel({ records }: SourceProvenancePanelProps) {
           >
             {t("source.emptyDescription")}
           </p>
+          <ProviderWarnings warnings={providerState.warnings} />
         </div>
       ) : (
         <div className={css({ display: "grid" })}>
+          <ProviderWarnings warnings={providerState.warnings} />
           {records.map((record, index) => {
             // Source records may be external links later; local/manual records
             // render as articles so they do not imply a missing destination.
@@ -96,7 +122,7 @@ export function SourceProvenancePanel({ records }: SourceProvenancePanelProps) {
                       {record.sourceName}
                     </p>
                   </div>
-                  <SourceStatusPill status={record.status} />
+                  <DataAvailabilityPill status={record.status} />
                 </div>
 
                 <p
@@ -164,5 +190,27 @@ export function SourceProvenancePanel({ records }: SourceProvenancePanelProps) {
         </div>
       )}
     </section>
+  );
+}
+
+function ProviderWarnings({ warnings }: { warnings: string[] }) {
+  if (warnings.length === 0) {
+    return null;
+  }
+
+  return (
+    <ul
+      className={css({
+        m: 0,
+        p: { base: "0 18px 16px 36px", md: "0 22px 18px 40px" },
+        color: "muted",
+        fontSize: "13px",
+        lineHeight: 1.5
+      })}
+    >
+      {warnings.map((warning) => (
+        <li key={warning}>{warning}</li>
+      ))}
+    </ul>
   );
 }

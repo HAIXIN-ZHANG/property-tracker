@@ -5,11 +5,18 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { css } from "styled-system/css";
 import { sampleAreas, sourceCards } from "@/lib/sample-data";
-import { getSourceStatusMeta } from "@/lib/source-status";
+import { getDataAvailabilityMeta } from "@/lib/data-contracts";
 import { LanguageToggle } from "@/components/language-toggle";
 import { MarketBrief } from "@/components/market-brief";
-import { SourceStatusPill } from "@/components/source-status-pill";
+import { DataAvailabilityPill } from "@/components/data-availability-pill";
 import { useI18n } from "@/components/i18n-provider";
+
+const statusIconColorByTone: Record<ReturnType<typeof getDataAvailabilityMeta>["tone"], string> = {
+  blocked: "muted",
+  neutral: "muted",
+  positive: "eucalyptus",
+  warning: "amber"
+};
 
 export function AppShell() {
   const { t } = useI18n();
@@ -85,6 +92,28 @@ export function AppShell() {
             })}
           >
             <LanguageToggle />
+            <Link
+              className={css({
+                display: "inline-flex",
+                alignItems: "center",
+                alignSelf: { base: "flex-start", md: "center" },
+                gap: "8px",
+                rounded: "control",
+                border: "1px solid token(colors.line)",
+                bg: "panel",
+                px: "10px",
+                py: "8px",
+                color: "muted",
+                fontSize: "13px",
+                fontWeight: 600,
+                textDecoration: "none",
+                whiteSpace: "nowrap",
+                _hover: { color: "ink" }
+              })}
+              href="/data-sources"
+            >
+              {t("app.dataSources")}
+            </Link>
             <div
               className={css({
                 display: "flex",
@@ -249,7 +278,7 @@ export function AppShell() {
             })}
           >
             {sourceCards.map((card) => {
-              const meta = getSourceStatusMeta(card.status);
+              const meta = getDataAvailabilityMeta(card.status);
               return (
                 <article
                   className={css({
@@ -275,7 +304,7 @@ export function AppShell() {
                           alignItems: "center",
                           gap: "8px",
                           mb: "7px",
-                          color: meta.color
+                          color: statusIconColorByTone[meta.tone]
                         })}
                       >
                         {card.icon === "data" ? <DatabaseZap size={17} /> : null}
@@ -294,7 +323,7 @@ export function AppShell() {
                         {card.description}
                       </p>
                     </div>
-                    <SourceStatusPill status={card.status} />
+                    <DataAvailabilityPill status={card.status} />
                   </div>
                 </article>
               );

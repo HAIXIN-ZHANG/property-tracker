@@ -48,7 +48,9 @@ describe("areaProfiles", () => {
     );
 
     expect(
-      unverifiedAreas.every((area) => area.metrics.every((metric) => metric.status !== "validated"))
+      unverifiedAreas.every((area) =>
+        area.metrics.every((metric) => metric.status !== "file_validated")
+      )
     ).toBe(true);
   });
 

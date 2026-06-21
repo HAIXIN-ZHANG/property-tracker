@@ -1,12 +1,12 @@
 # TODO
 
-Last updated: 2026-06-20
+Last updated: 2026-06-21
 
 ## Current Focus
 
-Stage 1 read-only sample workspace demo is complete. Next focus is Stage 2:
-define data source interfaces and source document contracts before connecting
-real providers.
+Stage 2 provider contracts, adapter stubs, and source document wiring are in
+place. Next focus is Stage 2.5: connect one real open-data proof before the
+saved opportunity tracker.
 
 ## Stage 0: Foundation
 
@@ -25,7 +25,7 @@ real providers.
 - [x] Create design direction document.
 - [x] Create agent guide.
 - [x] Create initial TODO.
-- [x] Rename remaining `landalpha` scaffold references to `property-tracker`.
+- [x] Rename remaining `landalpha` scaffold references to `property-tracker` and set the product brand to AreaScope.
 - [x] Replace Tailwind scaffold with Panda CSS.
 - [x] Decide UI primitive approach: Ark UI.
 - [x] Add Prettier config.
@@ -61,7 +61,7 @@ real providers.
 - [x] Identify open Data WA/SLIP boundary or planning layers.
 - [x] Download Transperth GTFS and inspect stop fields.
 - [x] Define static `AreaIdentity` records for Alkimos, Baldivis, Byford, Ellenbrook, and Subiaco.
-- [x] Mark each dashboard card as `real`, `mock`, `manual`, `access_pending`, or `unavailable`.
+- [x] Mark each dashboard card with an honest `DataAvailabilityStatus`.
 - [x] Keep PropTrack as a later-stage commercial candidate, not an MVP blocker.
 
 ## Stage 1: Static Area Workspace MVP
@@ -73,7 +73,7 @@ real providers.
 - [x] Build first area selection screen with sample area links.
 - [x] Add static sample area search/autocomplete.
 - [x] Build area workspace page.
-- [x] Build Market Signals preview with source-status labels.
+- [x] Build Market Signals preview with data-availability labels.
 - [x] Add strategy lens switcher: `Live`, `Invest`, `Build`.
 - [x] Add area metric cards.
 - [x] Add opportunity list.
@@ -87,15 +87,34 @@ real providers.
 
 ## Stage 2: Data Source Interfaces
 
-- [ ] Define provider interface shape.
-- [ ] Define Market Signal snapshot shape.
-- [ ] Add Domain API adapter stub.
-- [ ] Add ABS adapter stub.
-- [ ] Add WA crime adapter stub.
-- [ ] Add source document model.
-- [ ] Add extraction run model.
-- [ ] Add mock provider data.
-- [ ] Add data source status UI.
+- [x] Define provider interface shape.
+- [x] Define `DataAvailabilityStatus`.
+- [x] Define Market Signal snapshot shape.
+- [x] Add source document model.
+- [x] Add mock provider data.
+- [x] Add data source status UI.
+- [x] Add Domain API adapter stub.
+- [x] Add ABS adapter stub.
+- [x] Add WA crime adapter stub.
+- [x] Add extraction run model.
+- [x] Remove the parallel `SourceStatus` runtime model.
+- [x] Pass provider status, source, and warnings into the workspace and opportunity detail pages.
+- [x] Show inspectable evidence metadata on the data source status page.
+
+## Stage 2.5: Real Open Data Proof
+
+- [x] Create Stage 2.5 plan document.
+- [x] Choose first real source: WA Education / Data WA schools.
+- [ ] Define `SchoolRecord` and `AreaSchoolContext`.
+- [ ] Add small typed WA schools sample fixture.
+- [ ] Add WA schools provider/importer boundary.
+- [ ] Map one area first: Ellenbrook.
+- [ ] Add schools panel to area workspace.
+- [ ] Show source document and caveat in the UI.
+- [ ] Keep source document status `file_validated` and area interpretation `mapping_pending`.
+- [ ] Add tests for provider status, source metadata, and no catchment claim.
+- [ ] Run `pnpm check`.
+- [ ] Browser-smoke `/areas/ellenbrook`.
 
 ## Stage 3: Opportunity Tracker
 

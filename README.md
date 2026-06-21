@@ -1,12 +1,14 @@
-# property-tracker
+# AreaScope
 
 [![CI](https://github.com/HAIXIN-ZHANG/property-tracker/actions/workflows/ci.yml/badge.svg)](https://github.com/HAIXIN-ZHANG/property-tracker/actions/workflows/ci.yml)
 
 Area-first property research and opportunity tracking for Australian buyers.
 
-`property-tracker` is a decision workspace for researching suburbs, tracking
-property opportunities, comparing land / house-and-land options, and using AI to
-explain source-backed data. The first product target is Perth/WA.
+AreaScope is a decision workspace for researching suburbs, tracking property
+opportunities, comparing land / house-and-land options, and using AI to explain
+source-backed data. The first product target is Perth/WA.
+
+The repo and package name remain `property-tracker`.
 
 It is not a Domain or realestate.com.au clone. The product should help buyers
 understand an area before chasing a listing.
@@ -16,8 +18,9 @@ understand an area before chasing a listing.
 | Area                 | Status      | Notes                                                         |
 | -------------------- | ----------- | ------------------------------------------------------------- |
 | App foundation       | Complete    | Next.js, TypeScript, Panda CSS, Jest, Playwright, CI-ready    |
-| Data feasibility     | In progress | WA open data validated; Domain/PropTrack access is gated      |
+| Data feasibility     | In progress | WA open data field-checked; Domain/PropTrack access is gated  |
 | Static MVP           | Demo ready  | Stage 1 read-only sample workspace is implemented             |
+| Data contracts       | Complete    | Stage 2 provider contracts, mock provider, and stubs exist    |
 | Live provider data   | Later       | Domain/PropTrack integrations stay behind provider adapters   |
 | AI extraction/briefs | Later       | AI explains stored/source-backed facts; it is not a fact feed |
 
@@ -41,10 +44,15 @@ The MVP should work without paid listing API access.
 - Area workspace pages with Live / Invest / Build strategy lenses.
 - Read-only sample opportunity list and opportunity detail pages.
 - Bilingual UI label structure for English and Chinese.
-- Source status model for `validated`, `mapping_pending`, `sample`, `manual`, and
-  `access_pending` data.
+- Canonical `DataAvailabilityStatus` model for `sample_data`, `file_validated`,
+  `mapping_pending`, `source_accepted`, `access_pending`, `license_constrained`,
+  and related readiness states.
 - Market Signals availability model for `sample_now`, `external_link_now`,
   `public_source`, `derived_later`, and `access_pending` signals.
+- Data contracts for provider results, source documents, area identity mappings,
+  market signal snapshots, extraction runs, and provider adapters.
+- Mock area provider plus fail-closed Domain, ABS, and WA Police adapter stubs.
+- Data source readiness page at `/data-sources`.
 - External Market Brief slate linking to original market, policy, planning, and
   data sources.
 - Market Signals metric dictionary for supply, demand, price, rental, pressure,
@@ -144,6 +152,7 @@ styled-system/           Generated Panda CSS helpers
 - [Data Feasibility Review](docs/DATA_FEASIBILITY_REVIEW.md)
 - [Market Signals](docs/MARKET_SIGNALS.md)
 - [Area Identity](docs/AREA_IDENTITY.md)
+- [Stage 2.5 Open Data Proof](docs/STAGE_2_5_OPEN_DATA_PROOF.md)
 - [Domain API Setup](docs/DOMAIN_API_SETUP.md)
 - [Tech Stack](docs/TECH_STACK.md)
 - [Design Direction](docs/DESIGN_DIRECTION.md)
@@ -153,8 +162,9 @@ styled-system/           Generated Panda CSS helpers
 
 ## Data Principles
 
-- Show whether data is `validated`, `mapping_pending`, `sample`, `manual`, or
-  `access_pending`.
+- Show whether data is `sample_data`, `file_validated`, `mapping_pending`,
+  `source_accepted`, `access_pending`, `license_constrained`, `derived_later`, or
+  `rejected`.
 - Show Market Signals as `sample_now`, `external_link_now`, `public_source`,
   `derived_later`, or `access_pending`.
 - Store source provenance for important claims.
@@ -169,12 +179,13 @@ Completed:
 
 ```txt
 Stage 1: Static area workspace demo
+Stage 2: Data source interfaces
 ```
 
 Next implementation focus:
 
 ```txt
-Stage 2: Data source interfaces
+Stage 2.5: Real open-data proof
 ```
 
 Parallel validation track:
@@ -183,8 +194,8 @@ Parallel validation track:
 Stage 0.5: Data validation and area identity
 ```
 
-Stage 1 is demo-ready: the app has sample area search, read-only area
-workspaces, strategy lenses, Market Signals previews with honest availability
-states, sample opportunity detail pages, source/provenance empty states,
-bilingual UI labels, and a passing `pnpm check` gate. Real saved opportunity
-tracking starts in Stage 3.
+Stage 1 is demo-ready, and Stage 2 now separates UI from data providers through
+contracts, a mock area provider, fail-closed adapter stubs, canonical runtime
+readiness status, provider warnings, source document metadata, and a
+data-readiness page. Stage 2.5 connects one real open-data source before saved
+opportunity tracking starts in Stage 3.

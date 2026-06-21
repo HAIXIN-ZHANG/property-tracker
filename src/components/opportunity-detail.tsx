@@ -3,25 +3,30 @@
 import { ArrowLeft, Bot, CheckCircle2, CircleDollarSign, ClipboardList } from "lucide-react";
 import Link from "next/link";
 import { css } from "styled-system/css";
-import type { AreaOpportunity, AreaProfile } from "@/lib/areas";
-import {
-  getOpportunityAssumptions,
-  getOpportunityChecklist,
-  getOpportunitySourceRecords
-} from "@/lib/areas";
+import type { AreaOpportunity, AreaProfile, SourceRecord } from "@/lib/areas";
+import { getOpportunityAssumptions, getOpportunityChecklist } from "@/lib/areas";
+import type { RuntimeDataState } from "@/lib/data-contracts";
 import { SourceProvenancePanel } from "@/components/source-provenance-panel";
-import { SourceStatusPill } from "@/components/source-status-pill";
+import { DataAvailabilityPill } from "@/components/data-availability-pill";
 import { useI18n } from "@/components/i18n-provider";
 import { LanguageToggle } from "@/components/language-toggle";
 
 type OpportunityDetailProps = {
   area: AreaProfile;
   opportunity: AreaOpportunity;
+  opportunityProviderState: RuntimeDataState;
+  sourceRecords: SourceRecord[];
+  sourceRecordsState: RuntimeDataState;
 };
 
-export function OpportunityDetail({ area, opportunity }: OpportunityDetailProps) {
+export function OpportunityDetail({
+  area,
+  opportunity,
+  opportunityProviderState,
+  sourceRecords,
+  sourceRecordsState
+}: OpportunityDetailProps) {
   const { t } = useI18n();
-  const sources = getOpportunitySourceRecords(area, opportunity);
   const assumptions = getOpportunityAssumptions(opportunity);
   const checklist = getOpportunityChecklist(opportunity);
 
@@ -113,7 +118,7 @@ export function OpportunityDetail({ area, opportunity }: OpportunityDetailProps)
                   <ClipboardList size={16} />
                   {t("opportunity.detail")}
                 </div>
-                <SourceStatusPill status={opportunity.sourceStatus} />
+                <DataAvailabilityPill status={opportunityProviderState.status} />
               </div>
 
               <h1
@@ -325,13 +330,13 @@ export function OpportunityDetail({ area, opportunity }: OpportunityDetailProps)
                         {assumption.value}
                       </p>
                     </div>
-                    <SourceStatusPill status={assumption.status} />
+                    <DataAvailabilityPill status={assumption.status} />
                   </div>
                 ))}
               </div>
             </section>
 
-            <SourceProvenancePanel records={sources} />
+            <SourceProvenancePanel providerState={sourceRecordsState} records={sourceRecords} />
 
             <section
               className={css({

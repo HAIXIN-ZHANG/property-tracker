@@ -1,4 +1,4 @@
-import type { SourceStatus } from "@/lib/source-status";
+import type { DataAvailabilityStatus } from "@/lib/data-contracts";
 import type { MarketSignalAvailability } from "@/lib/market-signals";
 
 export type StrategyLens = "live" | "invest" | "build";
@@ -7,7 +7,7 @@ export type AreaMetric = {
   label: string;
   value: string;
   detail: string;
-  status: SourceStatus;
+  status: DataAvailabilityStatus;
 };
 
 export type AreaSignal = {
@@ -27,14 +27,14 @@ export type AreaOpportunity = {
   price: string;
   location: string;
   status: "Watching" | "Inspecting" | "Shortlisted";
-  sourceStatus: SourceStatus;
+  sourceStatus: DataAvailabilityStatus;
   summary: string;
   fit: Record<StrategyLens, string>;
   sourceRecords?: SourceRecord[];
   assumptions?: Array<{
     label: string;
     value: string;
-    status: SourceStatus;
+    status: DataAvailabilityStatus;
   }>;
   checklist?: string[];
 };
@@ -43,7 +43,7 @@ export type SourceRecord = {
   title: string;
   sourceName: string;
   href?: string;
-  status: SourceStatus;
+  status: DataAvailabilityStatus;
   note: string;
 };
 
@@ -65,7 +65,7 @@ export type AreaProfile = {
   planningNotes: Array<{
     title: string;
     detail: string;
-    status: SourceStatus;
+    status: DataAvailabilityStatus;
   }>;
   opportunities: AreaOpportunity[];
 };
@@ -109,7 +109,7 @@ export const areaProfiles: AreaProfile[] = [
         label: "Area identity",
         value: "Suburb sample",
         detail: "Domain and ABS provider keys still need exact mapping.",
-        status: "sample"
+        status: "sample_data"
       },
       {
         label: "Demographics",
@@ -174,12 +174,12 @@ export const areaProfiles: AreaProfile[] = [
       {
         title: "Transport change",
         detail: "Track station, route and commute assumptions as source-linked notes.",
-        status: "manual"
+        status: "source_accepted"
       },
       {
         title: "Land releases",
         detail: "Use manual estate/source links first; avoid Google result scraping.",
-        status: "manual"
+        status: "source_accepted"
       }
     ],
     opportunities: [
@@ -190,7 +190,7 @@ export const areaProfiles: AreaProfile[] = [
         price: "Sample: mid-$300k",
         location: "Ellenbrook growth pocket",
         status: "Watching",
-        sourceStatus: "sample",
+        sourceStatus: "sample_data",
         summary: "Track lot size, title timing, site costs and builder compatibility.",
         fit: {
           live: "Good if schools, commute and estate quality fit daily life.",
@@ -205,7 +205,7 @@ export const areaProfiles: AreaProfile[] = [
         price: "Sample: high-$600k",
         location: "Established Ellenbrook",
         status: "Inspecting",
-        sourceStatus: "sample",
+        sourceStatus: "sample_data",
         summary: "Use as a benchmark against land-plus-build total cost.",
         fit: {
           live: "Useful baseline for move-in-ready lifestyle comparison.",
@@ -220,7 +220,7 @@ export const areaProfiles: AreaProfile[] = [
         price: "Sample: low-$700k",
         location: "Estate package source",
         status: "Shortlisted",
-        sourceStatus: "manual",
+        sourceStatus: "source_accepted",
         summary: "Designed for later AI extraction from builder pages or pasted PDFs.",
         fit: {
           live: "Check inclusions, orientation, commute and school catchment.",
@@ -252,7 +252,7 @@ export const areaProfiles: AreaProfile[] = [
         label: "Area identity",
         value: "Suburb sample",
         detail: "Provider geography mapping is still unverified.",
-        status: "sample"
+        status: "sample_data"
       },
       {
         label: "Schools",
@@ -264,7 +264,7 @@ export const areaProfiles: AreaProfile[] = [
         label: "Planning",
         value: "Manual first",
         detail: "Use planning and estate links until layer licences are reviewed.",
-        status: "manual"
+        status: "source_accepted"
       },
       {
         label: "Market data",
@@ -316,12 +316,12 @@ export const areaProfiles: AreaProfile[] = [
       {
         title: "Estate maturity",
         detail: "Track shopping, transport and school delivery against move-in timing.",
-        status: "manual"
+        status: "source_accepted"
       },
       {
         title: "Coastal supply",
         detail: "Separate lifestyle premium from land-release abundance.",
-        status: "sample"
+        status: "sample_data"
       }
     ],
     opportunities: [
@@ -332,7 +332,7 @@ export const areaProfiles: AreaProfile[] = [
         price: "Sample: high-$300k",
         location: "Alkimos estate stage",
         status: "Watching",
-        sourceStatus: "manual",
+        sourceStatus: "source_accepted",
         summary: "Compare lot width, title timing, estate fees and site constraints.",
         fit: {
           live: "Good if commute and amenity timing match lifestyle needs.",
@@ -347,7 +347,7 @@ export const areaProfiles: AreaProfile[] = [
         price: "Sample: mid-$700k",
         location: "Builder package",
         status: "Watching",
-        sourceStatus: "sample",
+        sourceStatus: "sample_data",
         summary: "Use for package extraction schema and inclusions comparison.",
         fit: {
           live: "Check liveability while surrounding area matures.",
@@ -443,12 +443,12 @@ export const areaProfiles: AreaProfile[] = [
       {
         title: "Established amenity",
         detail: "Useful for liveability comparison against newer growth corridors.",
-        status: "sample"
+        status: "sample_data"
       },
       {
         title: "Supply balance",
         detail: "Watch active listings versus rental demand before investor claims.",
-        status: "manual"
+        status: "source_accepted"
       }
     ],
     opportunities: [
@@ -459,7 +459,7 @@ export const areaProfiles: AreaProfile[] = [
         price: "Sample: mid-$600k",
         location: "Baldivis established pocket",
         status: "Watching",
-        sourceStatus: "sample",
+        sourceStatus: "sample_data",
         summary: "Use to compare schools, commute and rental assumptions.",
         fit: {
           live: "Strong baseline for family-buyer workflow.",
@@ -492,7 +492,7 @@ export const areaProfiles: AreaProfile[] = [
         label: "Area identity",
         value: "Suburb sample",
         detail: "Needs provider mapping before real comparison.",
-        status: "sample"
+        status: "sample_data"
       },
       {
         label: "Transport",
@@ -504,7 +504,7 @@ export const areaProfiles: AreaProfile[] = [
         label: "Planning",
         value: "Manual first",
         detail: "Infrastructure/event tracker should start with source URLs.",
-        status: "manual"
+        status: "source_accepted"
       },
       {
         label: "Listings",
@@ -556,12 +556,12 @@ export const areaProfiles: AreaProfile[] = [
       {
         title: "Infrastructure timing",
         detail: "Record planned projects as events, not unverified claims.",
-        status: "manual"
+        status: "source_accepted"
       },
       {
         title: "Build risk",
         detail: "Site works and timeline assumptions should be captured per opportunity.",
-        status: "sample"
+        status: "sample_data"
       }
     ],
     opportunities: [
@@ -572,7 +572,7 @@ export const areaProfiles: AreaProfile[] = [
         price: "Sample: high-$600k",
         location: "Byford growth pocket",
         status: "Watching",
-        sourceStatus: "manual",
+        sourceStatus: "source_accepted",
         summary: "Designed for testing build lens and source extraction workflow.",
         fit: {
           live: "Depends on commute tolerance and amenity maturity.",
@@ -612,13 +612,13 @@ export const areaProfiles: AreaProfile[] = [
         label: "Amenities",
         value: "Manual first",
         detail: "OSM/Google Places rules need review before automation.",
-        status: "manual"
+        status: "source_accepted"
       },
       {
         label: "Planning",
         value: "Licence review",
         detail: "Planning layers exist but public use needs care.",
-        status: "manual"
+        status: "source_accepted"
       },
       {
         label: "Market data",
@@ -670,12 +670,12 @@ export const areaProfiles: AreaProfile[] = [
       {
         title: "Established constraints",
         detail: "Planning, heritage and renovation assumptions need source-linked checks.",
-        status: "manual"
+        status: "source_accepted"
       },
       {
         title: "Premium comparison",
         detail: "Useful benchmark against growth-area affordability and commute tradeoffs.",
-        status: "sample"
+        status: "sample_data"
       }
     ],
     opportunities: [
@@ -686,7 +686,7 @@ export const areaProfiles: AreaProfile[] = [
         price: "Sample: premium",
         location: "Subiaco established pocket",
         status: "Watching",
-        sourceStatus: "sample",
+        sourceStatus: "sample_data",
         summary: "Use for established-area comparison and premium-market assumptions.",
         fit: {
           live: "Strong liveability benchmark.",
@@ -747,7 +747,7 @@ export function getOpportunityAssumptions(opportunity: AreaOpportunity) {
       {
         label: "Inspection state",
         value: opportunity.status,
-        status: "manual" as const
+        status: "source_accepted" as const
       },
       {
         label: "Provider data",

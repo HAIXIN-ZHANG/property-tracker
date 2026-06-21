@@ -1,11 +1,11 @@
 # Data Feasibility Review
 
-Last updated: 2026-06-20
+Last updated: 2026-06-21
 
 This document answers the core product question:
 
 ```txt
-Given the data we can actually access, what can property-tracker build now,
+Given the data we can actually access, what can AreaScope build now,
 what is conditional, and what should not be promised yet?
 ```
 
@@ -43,10 +43,10 @@ what is conditional, and what should not be promised yet?
 | Product Feature                                      | Feasibility Now                              | Reason                                                                                                   |
 | ---------------------------------------------------- | -------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
 | Area search and area workspace                       | Feasible with sample/static area identity    | We can start with five WA sample areas and map to SA2/locality later                                     |
-| Demographics card                                    | Feasible with real data                      | ABS WA SA2 DataPack is downloaded and fields are confirmed                                               |
-| Crime card                                           | Feasible with real data                      | WA Police XLSX is downloaded and fields are confirmed                                                    |
-| Schools card                                         | Feasible with real data                      | WA schools XLSX is downloaded and lat/lng fields are confirmed                                           |
-| Transport card                                       | Feasible with real data                      | Transperth GTFS is downloaded and stop/route fields are confirmed                                        |
+| Demographics card                                    | Feasible after importer + mapping            | ABS WA SA2 DataPack fields are confirmed; suburb-to-SA2 mapping is still required                        |
+| Crime card                                           | Feasible after importer + mapping            | WA Police XLSX fields are confirmed; locality/geography matching and offence grouping rules are pending  |
+| Schools card                                         | Feasible after importer + distance rules     | WA schools XLSX fields and coordinates are confirmed; distance/catchment interpretation is pending       |
+| Transport card                                       | Feasible after importer + commute rules      | Transperth GTFS fields are confirmed; area-to-stop/route and commute assumptions are pending             |
 | Market Signals sample dashboard                      | Feasible with sample/external-link data      | SQM/Domain/PropTrack/Cotality/ABS sources exist, but many metrics need access or licensing               |
 | Basic map mode                                       | Feasible after core workspace                | Schools and transport markers are ready; localities/planning boundaries need licence review              |
 | Planning/infrastructure timeline                     | Partially feasible                           | Data WA planning layers exist, but interpretation and council/event coverage are fragmented              |
@@ -83,7 +83,7 @@ This keeps the user flow coherent:
 
 ```txt
 Search/select area
--> review real public-data cards
+-> review source-labelled public-data cards
 -> switch Live / Invest / Build lens
 -> save opportunities manually or from source text
 -> attach source URLs/PDFs/notes
@@ -91,11 +91,11 @@ Search/select area
 -> later connect Domain/PropTrack if access is approved
 ```
 
-## What Must Change In The Roadmap
+## Current Roadmap Rules
 
-1. Stage 1 should use real-looking sample UI, but every unvalidated value must be labelled as sample, manual, or access pending.
-2. Stage 2 should define provider interfaces and `DataAvailabilityStatus` before any provider-specific UI hard-coding.
-3. ABS, WA Police, WA schools, and Transperth should move from "research" to "validated candidate importers".
+1. Stage 1 uses real-looking sample UI, but every unvalidated value must be labelled as sample, manual, or access pending.
+2. Stage 2 now defines provider interfaces, `DataAvailabilityStatus`, source documents, extraction runs, and fail-closed adapter stubs.
+3. ABS, WA Police, WA schools, and Transperth should move from field-checked candidate sources into importers only after geography mapping rules are explicit.
 4. Domain listing/search/price/rent features should move to conditional later stages.
 5. The first map should show schools, transport, and area boundaries before parcel/cadastre or planning interpretation.
 6. Investment analysis should start with user-entered assumptions and transparent formulas, not automatic valuation claims.
@@ -103,19 +103,23 @@ Search/select area
 
 ## Immediate Next Step
 
-Stage 1 read-only sample workspace demo is complete. Build Stage 2 next:
+Stage 1 read-only sample workspace demo and Stage 2 provider boundary are
+complete for the current MVP. Build Stage 2.5 next:
 
 ```txt
-Provider interfaces
--> source document contracts
--> market signal snapshot shape
--> mock providers
--> source availability UI
+Real open-data proof
+-> WA schools typed sample
+-> Ellenbrook school context
+-> source document and caveat
+-> mapping_pending area interpretation
 ```
 
-This keeps real data integration behind stable contracts instead of hard-coding
-Domain, ABS, WA Police, schools, or transport assumptions directly into UI
-components.
+The Stage 2 boundary keeps real data integration behind stable contracts instead
+of hard-coding Domain, ABS, WA Police, schools, or transport assumptions directly
+into UI components.
+
+Stage 3 saved opportunity tracking should follow after this proof, unless the
+open-data path exposes a blocker.
 
 Stage 0.5 continues in parallel as data import proof-of-concepts for:
 

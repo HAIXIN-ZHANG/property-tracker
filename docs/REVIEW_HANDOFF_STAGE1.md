@@ -1,13 +1,15 @@
 # Review Handoff: Stage 1 Corrections
 
-Last updated: 2026-06-20
+Last updated: 2026-06-21
 
 ## Purpose
 
-This document captures the current reviewer findings after the Stage 1 sample
-workspace implementation.
+This document is a historical handoff for the reviewer findings after the Stage
+1 sample workspace implementation.
 
-Use it as a handoff for the next implementation pass.
+Resolution status: the listed Stage 1 honesty issues have been addressed in the
+current workspace and Stage 2 provider-boundary work. Keep this file as the audit
+record, not as the active TODO source.
 
 ## Non-Negotiable Product Rule
 
@@ -19,7 +21,7 @@ simulating a stronger capability.
 
 ## Important Constraint
 
-`property-tracker` is not a listing portal clone.
+AreaScope is not a listing portal clone.
 
 The product must stay:
 
@@ -31,7 +33,7 @@ The product must stay:
 Do not turn blocked, partial, broader-geography, or placeholder data into
 something that looks like validated suburb-level truth.
 
-## Findings To Fix
+## Resolved Findings
 
 ### P1. `Validated` is being used too early at the area-card level
 

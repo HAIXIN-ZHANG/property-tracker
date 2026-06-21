@@ -2,7 +2,7 @@
 
 Last updated: 2026-06-20
 
-The UI direction for `property-tracker` should feel calm, premium, and native-app inspired.
+The UI direction for AreaScope should feel calm, premium, and native-app inspired.
 
 ## Visual Principles
 

@@ -1,8 +1,8 @@
 # Area Identity
 
-Last updated: 2026-06-20
+Last updated: 2026-06-21
 
-`property-tracker` starts with an area search, but every provider identifies places differently.
+AreaScope starts with an area search, but every provider identifies places differently.
 
 This document defines the area identity layer that will keep Domain, ABS, WA Police, Data WA, Transperth, OpenStreetMap, and user-entered opportunities aligned.
 
@@ -157,11 +157,12 @@ User searches area
 
 Stage 1 can use static mappings for five sample areas.
 
-Stage 2 should introduce:
+Stage 2 introduced the first data-boundary pieces:
 
-- `AreaIdentity` model or TypeScript type.
-- `AreaProviderKeys`.
+- Static area identity records for the first five WA sample areas.
+- `AreaIdentityMapping` for area-to-provider geography readiness.
 - `DataAvailabilityStatus`.
-- `AreaDataSourceNote`.
+- Mock provider boundaries that keep provider keys empty until verified.
 
-Stage 5 and later should enrich the mappings with real provider identifiers.
+Stage 3 can attach saved opportunity records to these area identities. Stage 5
+and later should enrich the mappings with real provider identifiers.

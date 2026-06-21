@@ -1,6 +1,6 @@
 # Tech Stack
 
-Last updated: 2026-06-20
+Last updated: 2026-06-21
 
 This project should stay small enough to move quickly, while keeping the repo credible as a real product.
 
@@ -45,7 +45,7 @@ Provider ingestion should be added once the UI and import contracts are stable.
 
 ## Current Styling Decision
 
-Use Panda CSS directly through `styled-system/css` for Stage 0 and Stage 1.
+Use Panda CSS directly through `styled-system/css` through the current MVP stages.
 
 Add Panda recipes only when a component family repeats enough to justify it.
 

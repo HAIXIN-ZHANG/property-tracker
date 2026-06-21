@@ -1,10 +1,10 @@
 # Agent Guide
 
-Use this file when working on `property-tracker`.
+Use this file when working on the `property-tracker` repo.
 
 ## Project Direction
 
-`property-tracker` is an area-first property research workspace for Australian property buyers.
+AreaScope is an area-first property research workspace for Australian property buyers.
 
 Start Perth/WA-first. Do not treat Domain or realestate.com.au public-page scraping as the product backbone.
 

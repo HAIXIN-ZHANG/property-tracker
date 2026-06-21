@@ -1,8 +1,8 @@
 # Data Source Audit
 
-Last updated: 2026-06-20
+Last updated: 2026-06-21
 
-This document tracks what data can realistically support `property-tracker`.
+This document tracks what data can realistically support AreaScope.
 
 The product should be constrained by data that is:
 
@@ -111,14 +111,14 @@ Key ideas:
 
 ## MVP Data Strategy
 
-Stage 1 should work without live paid API access.
+Stage 1 and Stage 2 should work without live paid API access.
 
 Use:
 
 - Seed/sample data for area dashboards.
 - Manual source URL import.
 - Manual PDF/text import.
-- Domain API adapter interface with mocked data until credentials are available.
+- Domain API adapter stub with mocked/fail-closed behaviour until package access is available.
 - Source provenance from day one.
 
 This avoids the product being blocked by a single data provider.

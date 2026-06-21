@@ -3,7 +3,7 @@ import Link from "next/link";
 import { css } from "styled-system/css";
 import type { AreaOpportunity, StrategyLens } from "@/lib/areas";
 import { useI18n } from "@/components/i18n-provider";
-import { SourceStatusPill } from "@/components/source-status-pill";
+import { DataAvailabilityPill } from "@/components/data-availability-pill";
 
 type OpportunityListProps = {
   areaSlug: string;
@@ -128,7 +128,7 @@ export function OpportunityList({ areaSlug, lens, opportunities }: OpportunityLi
                     </p>
                   </div>
                 </div>
-                <SourceStatusPill status={opportunity.sourceStatus} />
+                <DataAvailabilityPill status={opportunity.sourceStatus} />
               </div>
 
               <div

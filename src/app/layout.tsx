@@ -3,7 +3,7 @@ import { I18nProvider } from "@/components/i18n-provider";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "property-tracker",
+  title: "AreaScope",
   description: "Area-first property research and opportunity tracking for Australian buyers."
 };
 

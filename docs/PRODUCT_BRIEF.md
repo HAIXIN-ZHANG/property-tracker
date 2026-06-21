@@ -4,7 +4,7 @@ Last updated: 2026-06-20
 
 ## Product Thesis
 
-`property-tracker` is an area-first property research workspace for Australian buyers.
+AreaScope is an area-first property research workspace for Australian buyers.
 
 The product helps a buyer start from a suburb or area, understand the local context, track property opportunities, and make better decisions across owner-occupier, investor, and land-and-build strategies.
 

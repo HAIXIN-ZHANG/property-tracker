@@ -5,18 +5,27 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { css } from "styled-system/css";
 import type { AreaOpportunity, AreaProfile, StrategyLens } from "@/lib/areas";
+import type { AreaIdentityMapping, RuntimeDataState } from "@/lib/data-contracts";
 import { useI18n } from "@/components/i18n-provider";
 import { LanguageToggle } from "@/components/language-toggle";
 import { OpportunityList } from "@/components/opportunity-list";
 import { MarketSignalsPreview } from "@/components/market-signals-preview";
-import { SourceStatusPill } from "@/components/source-status-pill";
+import { DataAvailabilityPill } from "@/components/data-availability-pill";
 import { StrategyLensTabs } from "@/components/strategy-lens-tabs";
 
 type AreaWorkspaceProps = {
   area: AreaProfile;
+  identityMapping?: AreaIdentityMapping;
+  identityProviderState?: RuntimeDataState;
+  providerState: RuntimeDataState;
 };
 
-export function AreaWorkspace({ area }: AreaWorkspaceProps) {
+export function AreaWorkspace({
+  area,
+  identityMapping,
+  identityProviderState,
+  providerState
+}: AreaWorkspaceProps) {
   const { t } = useI18n();
   const [selectedLens, setSelectedLens] = useState<StrategyLens>("live");
   const visibleOpportunities = useMemo(() => {
@@ -117,11 +126,7 @@ export function AreaWorkspace({ area }: AreaWorkspaceProps) {
                 <MapPinned size={16} />
                 {t("workspace.kicker")}
               </div>
-              <SourceStatusPill
-                status={
-                  area.identity.mappingStatus === "manually_verified" ? "validated" : "sample"
-                }
-              />
+              <DataAvailabilityPill status={identityMapping?.status ?? providerState.status} />
             </div>
 
             <h1
@@ -182,9 +187,15 @@ export function AreaWorkspace({ area }: AreaWorkspaceProps) {
               <AreaFact
                 icon="status"
                 label={t("workspace.mapping")}
-                value={area.identity.mappingStatus}
+                value={identityMapping?.status ?? area.identity.mappingStatus}
               />
             </div>
+
+            <RuntimeBoundaryPanel
+              identityMapping={identityMapping}
+              identityProviderState={identityProviderState}
+              providerState={providerState}
+            />
           </div>
 
           <aside
@@ -297,7 +308,7 @@ export function AreaWorkspace({ area }: AreaWorkspaceProps) {
                 >
                   {metric.label}
                 </h3>
-                <SourceStatusPill status={metric.status} />
+                <DataAvailabilityPill status={metric.status} />
               </div>
               <p
                 className={css({
@@ -350,6 +361,104 @@ export function AreaWorkspace({ area }: AreaWorkspaceProps) {
         </section>
       </div>
     </main>
+  );
+}
+
+function RuntimeBoundaryPanel({
+  identityMapping,
+  identityProviderState,
+  providerState
+}: {
+  identityMapping?: AreaIdentityMapping;
+  identityProviderState?: RuntimeDataState;
+  providerState: RuntimeDataState;
+}) {
+  const warnings = Array.from(
+    new Set([
+      ...providerState.warnings,
+      ...(identityProviderState?.warnings ?? []),
+      ...(identityMapping?.caveats ?? [])
+    ])
+  );
+
+  return (
+    <div
+      className={css({
+        mt: "18px",
+        rounded: "control",
+        border: "1px dashed token(colors.line)",
+        bg: "rgba(245,246,243,0.58)",
+        p: "12px",
+        display: "grid",
+        gap: "10px"
+      })}
+    >
+      <div
+        className={css({
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: "10px",
+          flexWrap: "wrap"
+        })}
+      >
+        <div>
+          <p
+            className={css({
+              m: 0,
+              color: "muted",
+              fontSize: "12px",
+              fontWeight: 850,
+              textTransform: "uppercase"
+            })}
+          >
+            Runtime data boundary
+          </p>
+          <p
+            className={css({
+              m: 0,
+              mt: "3px",
+              color: "ink",
+              fontSize: "13px",
+              lineHeight: 1.45
+            })}
+          >
+            {providerState.source}
+          </p>
+        </div>
+        <DataAvailabilityPill status={providerState.status} />
+      </div>
+
+      {identityMapping ? (
+        <p
+          className={css({
+            m: 0,
+            color: "muted",
+            fontSize: "13px",
+            lineHeight: 1.45
+          })}
+        >
+          Area mapping: {identityMapping.status}; provider keys verified:{" "}
+          {Object.keys(identityMapping.providerKeys).length || 0}
+        </p>
+      ) : null}
+
+      {warnings.length > 0 ? (
+        <ul
+          className={css({
+            m: 0,
+            pl: "18px",
+            color: "muted",
+            fontSize: "13px",
+            lineHeight: 1.5
+          })}
+        >
+          {warnings.map((warning) => (
+            <li key={warning}>{warning}</li>
+          ))}
+        </ul>
+      ) : null}
+    </div>
   );
 }
 
@@ -497,7 +606,7 @@ function PlanningPanel({ area }: { area: AreaProfile }) {
                 {index === 0 ? <Train size={15} /> : <School size={15} />}
                 {note.title}
               </div>
-              <SourceStatusPill status={note.status} />
+              <DataAvailabilityPill status={note.status} />
             </div>
             <p
               className={css({

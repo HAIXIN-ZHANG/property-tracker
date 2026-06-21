@@ -2,7 +2,7 @@
 
 Last updated: 2026-06-20
 
-This document tracks how to register for Domain's official API and what `property-tracker` expects to validate first.
+This document tracks how to register for Domain's official API and what AreaScope expects to validate first.
 
 ## Registration Links
 
@@ -118,7 +118,7 @@ scope=...
 
 Exact scope names must be verified against endpoint references and the enabled project package. Domain returns `invalid_scope` when a requested scope is not included in the plan.
 
-## Packages Relevant To property-tracker
+## Packages Relevant To AreaScope
 
 ### Address Suggestions
 

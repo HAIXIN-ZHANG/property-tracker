@@ -1,6 +1,6 @@
 # Stage Execution Plan
 
-Last updated: 2026-06-20
+Last updated: 2026-06-21
 
 This document turns the roadmap into executable stages.
 
@@ -30,11 +30,10 @@ What is already true:
 - ABS WA SA2, WA Police crime, WA schools, and Transperth GTFS sample files have been downloaded and field-checked.
 - Data WA/Landgate locality and DPLH planning datasets exist, but their licences need review before public-product use.
 
-Next implementation focus:
+Current implementation focus:
 
 ```txt
-Define provider interfaces, source documents, market signal snapshots, and mock
-provider data before connecting real APIs.
+Stage 2.5: real open-data proof on top of the Stage 2 provider boundary.
 ```
 
 The Stage 0 cleanup removed dead Prisma/ingestion scripts, replaced Tailwind with
@@ -50,7 +49,8 @@ research records.
 | 0     | Clean, runnable app foundation             | Yes                             | Repo/tooling cleanup                                          | Done                             |
 | 0.5   | Data availability and area mapping plan    | Mostly                          | Area identity mapping, licence review, Domain access requests | Continue in parallel             |
 | 1     | Static read-only area workspace demo       | Yes                             | Sample data                                                   | Done                             |
-| 2     | Provider interfaces and data source status | Yes                             | Type contracts and mocks                                      | Do next                          |
+| 2     | Provider interfaces and data source status | Yes                             | Type contracts and mocks                                      | Done for MVP boundary            |
+| 2.5   | Real open-data proof                       | Yes                             | Field-checked WA schools source                               | Do next                          |
 | 3     | Manual opportunity tracker                 | Yes                             | Local persistence                                             | Build before complex automation  |
 | 4     | AI extraction and briefs                   | Yes, with user-provided sources | AI model + provenance model                                   | Build after source records exist |
 | 5     | Domain API integration                     | Conditionally                   | Approved Domain packages                                      | Do not block MVP                 |
@@ -134,7 +134,7 @@ Make sure product features match data that can actually be obtained.
 - Identify open Data WA/SLIP planning or boundary layers.
 - Download/inspect Transperth GTFS.
 - Define static `AreaIdentity` records for first five WA areas.
-- Mark dashboard cards as `real`, `mock`, `manual`, `access_pending`, or `unavailable`.
+- Mark dashboard cards with an honest `DataAvailabilityStatus`.
 
 ### User Flow
 
@@ -167,7 +167,7 @@ This can work without Domain production access because it can use:
 
 ### Done When
 
-- Each MVP dashboard card has a source status.
+- Each MVP dashboard card has a `DataAvailabilityStatus`.
 - First five WA areas have static `AreaIdentity` records.
 - Domain and PropTrack are represented as access-gated sources.
 
@@ -233,24 +233,29 @@ No live API is needed.
 
 ## Stage 2: Data Source Interfaces
 
+Status: complete for the current MVP boundary. Real providers remain
+access-pending or mapping-pending until credentials and source files are wired.
+
 ### Goal
 
 Separate UI from data providers so real APIs can be added later without rewriting the app.
 
 ### Features / Tasks
 
-- Define provider interface shape.
-- Define `DataAvailabilityStatus`.
+- Define provider interface shape. Done in Stage 2A.
+- Define `DataAvailabilityStatus`. Done in Stage 2A.
 - Define `MarketSignalDefinition`.
-- Define `MarketSignalSnapshot`.
-- Define source provenance model.
-- Add mock area provider.
-- Add mock opportunity provider.
-- Add Domain adapter stub.
-- Add ABS adapter stub.
-- Add WA crime adapter stub.
-- Add data source status page.
-- Add provider status badges in UI.
+- Define `MarketSignalSnapshot`. Done in Stage 2A.
+- Define source provenance model. Done with `SourceDocument`.
+- Add mock area provider. Done in Stage 2A.
+- Add mock opportunity provider. Done through the mock area provider.
+- Add Domain adapter stub. Done in Stage 2B.
+- Add ABS adapter stub. Done in Stage 2B.
+- Add WA crime adapter stub. Done in Stage 2B.
+- Add extraction run model. Done in Stage 2B.
+- Add data source status page. Done in Stage 2A and refined in Stage 2B.
+- Add provider status badges in UI. Done on `/data-sources`, area workspace, and
+  opportunity detail.
 
 ### User Flow
 
@@ -258,9 +263,9 @@ Separate UI from data providers so real APIs can be added later without rewritin
 Open area workspace
 -> UI requests data from provider interface
 -> Mock provider returns sample data
--> Data status badges show mock/access_pending/validated
+-> Data status badges show sample_data/access_pending/file_validated/mapping_pending
 -> Market Signals shows sample/external_link/access_pending/derived_later states
--> Data source page shows provider health and next action
+-> Data source page shows provider health, next action, and evidence metadata
 ```
 
 ### Flow Check
@@ -280,6 +285,69 @@ The provider interfaces can use mock data while real providers are pending.
 - The UI does not care whether data comes from mock, Domain, ABS, or manual input.
 - Provider status is visible and honest.
 - Domain API access can be added behind the adapter later.
+
+## Stage 2.5: Real Open Data Proof
+
+Status: planned.
+
+### Goal
+
+Connect one field-checked public source into the area workspace and prove the
+real-data path works without claiming more than the source supports.
+
+### First Source
+
+Use WA Education / Data WA schools.
+
+Reasons:
+
+- School data is already field-checked.
+- It is useful for `Live`, `Invest`, and `Build` lenses.
+- It does not depend on Domain package approval.
+- It can start as a list before map mode exists.
+
+### Features / Tasks
+
+- Define `SchoolRecord`.
+- Define `AreaSchoolContext`.
+- Add a small typed WA schools sample fixture.
+- Add WA schools provider/importer boundary.
+- Map Ellenbrook first.
+- Add a schools panel to the area workspace.
+- Show source document and caveat.
+- Keep file status separate from area interpretation status.
+- Add tests for provider status and no catchment claim.
+
+### User Flow
+
+```txt
+Open Ellenbrook area workspace
+-> Schools panel loads from WA schools provider
+-> User sees school names and basic location fields
+-> UI shows source/caveat
+-> UI does not claim catchment, rating, or enrolment eligibility
+```
+
+### Flow Check
+
+This can work now with a small typed fixture from the field-checked WA schools
+source.
+
+No Domain access, database, map, or AI is required.
+
+### Main Risks
+
+- Treating suburb text matches as catchment truth.
+- Importing too much raw data into the frontend bundle.
+- Hiding the distinction between file validation and area mapping.
+
+### Done When
+
+- Ellenbrook shows a real-data-derived schools panel.
+- The source is labelled honestly.
+- The area interpretation remains `mapping_pending`.
+- `pnpm check` passes.
+- Browser smoke confirms `/areas/ellenbrook` still renders cleanly.
 
 ## Stage 3: Opportunity Tracker
 
@@ -599,7 +667,7 @@ This should not start until WA works.
 
 ## Recommended Next Move
 
-Build Stage 2 provider interfaces and source document contracts.
+Build Stage 2.5 real open-data proof.
 
 Continue Stage 0.5 data access and source validation in parallel, but do not let
 it block the visible MVP.
