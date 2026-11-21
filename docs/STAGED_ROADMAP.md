@@ -2,6 +2,10 @@
 
 Last updated: 2026-06-21
 
+> **Historical roadmap.** The broader platform is on hold. The next work is
+> [Personal V1](PERSONAL_V1_PLAN.md), which does not require progressing through
+> these stages.
+
 The product can be large. The implementation should not be.
 
 Each stage should create a working loop before the next stage adds data depth or automation.

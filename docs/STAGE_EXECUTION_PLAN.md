@@ -2,6 +2,10 @@
 
 Last updated: 2026-06-21
 
+> **Historical plan.** The original stage sequence is paused after the
+> read-only prototype and provider boundary. On return, follow the
+> [Personal V1 plan](PERSONAL_V1_PLAN.md) and [active TODO](TODO.md) instead.
+
 This document turns the roadmap into executable stages.
 
 Principle:
@@ -11,7 +15,7 @@ Every stage must create or preserve a working loop.
 If a live data source is blocked, the stage must still work with mock data, manual input, or an access-pending state.
 ```
 
-## Current Checkpoint
+## Prototype Checkpoint
 
 Current demo-ready stage:
 
@@ -30,7 +34,7 @@ What is already true:
 - ABS WA SA2, WA Police crime, WA schools, and Transperth GTFS sample files have been downloaded and field-checked.
 - Data WA/Landgate locality and DPLH planning datasets exist, but their licences need review before public-product use.
 
-Current implementation focus:
+The next step proposed at the time was:
 
 ```txt
 Stage 2.5: real open-data proof on top of the Stage 2 provider boundary.
@@ -50,7 +54,7 @@ research records.
 | 0.5   | Data availability and area mapping plan    | Mostly                          | Area identity mapping, licence review, Domain access requests | Continue in parallel             |
 | 1     | Static read-only area workspace demo       | Yes                             | Sample data                                                   | Done                             |
 | 2     | Provider interfaces and data source status | Yes                             | Type contracts and mocks                                      | Done for MVP boundary            |
-| 2.5   | Real open-data proof                       | Yes                             | Field-checked WA schools source                               | Do next                          |
+| 2.5   | Real open-data proof                       | Yes                             | Field-checked WA schools source                               | Deferred                         |
 | 3     | Manual opportunity tracker                 | Yes                             | Local persistence                                             | Build before complex automation  |
 | 4     | AI extraction and briefs                   | Yes, with user-provided sources | AI model + provenance model                                   | Build after source records exist |
 | 5     | Domain API integration                     | Conditionally                   | Approved Domain packages                                      | Do not block MVP                 |
@@ -288,7 +292,7 @@ The provider interfaces can use mock data while real providers are pending.
 
 ## Stage 2.5: Real Open Data Proof
 
-Status: planned.
+Status: deferred; not a Personal V1 prerequisite.
 
 ### Goal
 
@@ -665,9 +669,7 @@ This should not start until WA works.
 - WA patterns generalize cleanly.
 - Unsupported data is clearly labelled.
 
-## Recommended Next Move
+## Where To Resume
 
-Build Stage 2.5 real open-data proof.
-
-Continue Stage 0.5 data access and source validation in parallel, but do not let
-it block the visible MVP.
+Start with the local shortlist in the [active TODO](TODO.md). Revisit Stage 2.5
+or the other data stages only if a specific need justifies the work.

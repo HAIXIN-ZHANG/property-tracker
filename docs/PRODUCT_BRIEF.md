@@ -2,6 +2,10 @@
 
 Last updated: 2026-06-20
 
+> **Historical brief.** It describes the original area-first prototype, not
+> the next release. The current decision and scope are in
+> [Personal V1](PERSONAL_V1_PLAN.md).
+
 ## Product Thesis
 
 AreaScope is an area-first property research workspace for Australian buyers.

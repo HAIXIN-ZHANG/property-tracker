@@ -2,6 +2,10 @@
 
 Last updated: 2026-06-21
 
+> **Prototype reference.** The metrics and data dependencies below are kept
+> for reference. [Personal V1](PERSONAL_V1_PLAN.md) uses external links, not a
+> market dashboard or a data feed.
+
 `Market Signals` is the area-level analytics module for AreaScope.
 
 It should feel similar in purpose to market dashboards from property portals and research sites, but it must be honest about data availability. The first version can show availability cards, source links, and clearly labelled sample-only values. Real automated metrics require approved APIs, purchased chart data, or our own scheduled snapshots.

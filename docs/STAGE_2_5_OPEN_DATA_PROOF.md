@@ -2,6 +2,9 @@
 
 Last updated: 2026-06-21
 
+> **Deferred.** This proof was planned but not implemented. It is not a
+> prerequisite for [Personal V1](PERSONAL_V1_PLAN.md).
+
 ## Goal
 
 Prove that AreaScope can move beyond sample data by connecting one real,

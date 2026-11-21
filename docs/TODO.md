@@ -1,14 +1,29 @@
 # TODO
 
-Last updated: 2026-06-21
+Last updated: 2026-11-21
 
 ## Current Focus
 
-Stage 2 provider contracts, adapter stubs, and source document wiring are in
-place. Next focus is Stage 2.5: connect one real open-data proof before the
-saved opportunity tracker.
+Paused at the read-only prototype. When work resumes, follow the
+[Personal V1 Plan](PERSONAL_V1_PLAN.md). Stage 2.5 and the old roadmap are not
+prerequisites.
 
-## Stage 0: Foundation
+## Personal V1 Checklist
+
+Start with the first unchecked item. Each step should be useful on its own.
+
+- [ ] Make the shortlist the home screen. Add, edit, and remove candidates with a source link, suburb, type, status, and next action. Persist the records locally and support filtering by suburb and status.
+- [ ] Add candidate detail for manual notes, quoted inclusions and exclusions, evidence links, last checked date, and open questions.
+- [ ] Compare two or three candidates. Show known subtotals and separately list unknown costs; test that included costs are not counted twice.
+- [ ] Add a versioned JSON backup and validated restore with confirmation before replacing existing records. Document that there is no sync.
+- [ ] Walk through a real shortlist privately, test persistence and restore, run `pnpm check` and `pnpm e2e`, and update the README to reflect the shipped scope.
+
+## Previous Roadmap Checklist (Reference Only)
+
+Completion marks below describe the original prototype work. Unchecked items
+are historical and should not be treated as the active backlog.
+
+### Stage 0: Foundation
 
 - [x] Initialize git repository for `property-tracker`.
 - [x] Align `package.json` scripts with files that actually exist.
@@ -36,7 +51,7 @@ saved opportunity tracker.
 - [x] Add basic `pnpm check` script.
 - [x] Add initial app shell.
 
-## Stage 0.5: Data Validation And Area Identity
+### Stage 0.5: Data Validation And Area Identity
 
 - [x] Register/login at Domain Developer Portal.
 - [x] Create Domain project `property-tracker-dev`.
@@ -64,7 +79,7 @@ saved opportunity tracker.
 - [x] Mark each dashboard card with an honest `DataAvailabilityStatus`.
 - [x] Keep PropTrack as a later-stage commercial candidate, not an MVP blocker.
 
-## Stage 1: Static Area Workspace MVP
+### Stage 1: Static Area Workspace MVP
 
 - [x] Create `src/app` structure.
 - [x] Add static external market brief link slate.
@@ -85,7 +100,7 @@ saved opportunity tracker.
 - [x] Add bilingual UI label structure.
 - [x] Verify desktop and mobile layout.
 
-## Stage 2: Data Source Interfaces
+### Stage 2: Data Source Interfaces
 
 - [x] Define provider interface shape.
 - [x] Define `DataAvailabilityStatus`.
@@ -101,7 +116,7 @@ saved opportunity tracker.
 - [x] Pass provider status, source, and warnings into the workspace and opportunity detail pages.
 - [x] Show inspectable evidence metadata on the data source status page.
 
-## Stage 2.5: Real Open Data Proof
+### Stage 2.5: Real Open Data Proof
 
 - [x] Create Stage 2.5 plan document.
 - [x] Choose first real source: WA Education / Data WA schools.
@@ -116,7 +131,7 @@ saved opportunity tracker.
 - [ ] Run `pnpm check`.
 - [ ] Browser-smoke `/areas/ellenbrook`.
 
-## Stage 3: Opportunity Tracker
+### Stage 3: Opportunity Tracker
 
 - [ ] Add save opportunity flow.
 - [ ] Add status model: watching, inspecting, quoted, rejected, shortlisted.
@@ -126,7 +141,7 @@ saved opportunity tracker.
 - [ ] Add PDF upload placeholder.
 - [ ] Add opportunity comparison view.
 
-## Stage 4: AI Extraction And Briefs
+### Stage 4: AI Extraction And Briefs
 
 - [ ] Choose default model for extraction and briefing.
 - [ ] Define extraction schema for house-and-land packages.
@@ -138,7 +153,7 @@ saved opportunity tracker.
 - [ ] Add AI area brief.
 - [ ] Add AI opportunity brief.
 
-## Stage 5: CI/CD And Deployment
+### Stage 5: CI/CD And Deployment
 
 - [x] Add GitHub Actions CI for `pnpm check`.
 - [ ] Add required branch protection once the repo is public or shared.
@@ -151,7 +166,7 @@ saved opportunity tracker.
 - [ ] Add basic uptime or availability monitoring after public launch.
 - [ ] Add release checklist for tagged MVP milestones.
 
-## Later Backlog
+### Later Backlog
 
 - [ ] Real Domain OAuth integration.
 - [ ] Domain listing search.
@@ -171,7 +186,7 @@ saved opportunity tracker.
 - [ ] Market Signals real-data pipeline.
 - [ ] National state-by-state expansion.
 
-## Product Decisions
+### Original Product Decisions
 
 - The product is area-first, not listing-first.
 - Start Perth/WA-first.
